@@ -1,0 +1,35 @@
+<template>
+    <button class="confirm-button">
+        Apply
+    </button>
+</template>
+
+<script>
+    import { Component, Vue } from 'vue-property-decorator'
+
+    @Component
+    export default class ConfirmButton extends Vue {}
+</script>
+
+<style lang="scss" scoped>
+    .confirm-button {
+        padding: 12px 32px;
+        background-color: $pink;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 15px;
+        font-weight: 600;
+        letter-spacing: 0.5px;
+        border: none;
+        cursor: pointer;
+        transition: background-color 0.2s ease-out;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:hover {
+            background-color: lighten($pink, 10);
+        }
+    }
+</style>

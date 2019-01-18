@@ -1,9 +1,10 @@
 import Vue from 'vue'
 
-import App from './App.vue'
+// @ts-ignore import/named
+import DatePicker from './DatePicker'
 
 Vue.config.productionTip = false
 
 new Vue({
-    render: h => h(App),
+    render: h => h(DatePicker),
 }).$mount('#app')
