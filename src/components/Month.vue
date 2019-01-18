@@ -13,9 +13,12 @@
             />
 
             <Day
-                v-for="day in days"
-                :key="`${day}`"
-                :date="day"
+                v-for="date in dates"
+                :key="`${date}`"
+                :checkin="checkin"
+                :checkout="checkout"
+                :date="date"
+                @click="$emit('select', date)"
             />
 
             <Spacer
@@ -39,19 +42,20 @@
             Week,
         },
         props: {
+            checkin: {
+                required: true,
+                type: Date,
+            },
+            checkout: {
+                required: true,
+                type: Date,
+            },
             month: {
                 required: true,
                 type: Number,
             },
         },
         computed: {
-            date() {
-                const date = new Date()
-                date.setMonth(this.month)
-
-                return date
-            },
-
             dateString() {
                 const month = this.firstDay.toLocaleString('en-us', {
                     month: 'long',
@@ -60,30 +64,40 @@
                 return `${month} ${this.year}`
             },
 
-            days() {
+            dates() {
                 const currentDate = this.firstDay
-                const days = []
+                const dates = []
 
                 while (this.firstDay <= this.lastDay) {
-                    days.push(new Date(currentDate.getTime()))
+                    dates.push(new Date(currentDate.getTime()))
 
                     currentDate.setDate(currentDate.getDate() + 1)
                 }
 
-                return days
+                return dates
             },
 
             firstDay() {
-                return new Date(this.date.getFullYear(), this.date.getMonth())
+                return new Date(this.normalizedDate.getFullYear(), this.normalizedDate.getMonth())
             },
 
             lastDay() {
-                return new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
+                return new Date(
+                    this.normalizedDate.getFullYear(),
+                    this.normalizedDate.getMonth() + 1, 0,
+                )
+            },
+
+            normalizedDate() {
+                const normalizedDate = new Date()
+                normalizedDate.setMonth(this.month)
+
+                return normalizedDate
             },
 
             spacers() {
                 const before = Math.max(this.firstDay.getDay() - 1, 0)
-                const after = 7 * 6 - this.days.length - before
+                const after = 7 * 6 - this.dates.length - before
 
                 return {
                     before,
@@ -92,7 +106,7 @@
             },
 
             year() {
-                return this.date.getFullYear()
+                return this.normalizedDate.getFullYear()
             },
         },
     }

@@ -20,8 +20,19 @@
             </header>
 
             <div class="datepicker-months">
-                <Month :month="currentMonth" />
-                <Month :month="currentMonth + 1" />
+                <Month
+                    :checkin="checkin"
+                    :checkout="checkout"
+                    :month="currentMonth"
+                    @select="dateSelected"
+                />
+
+                <Month
+                    :checkin="checkin"
+                    :checkout="checkout"
+                    :month="currentMonth + 1"
+                    @select="dateSelected"
+                />
             </div>
 
             <footer class="datepicker-footer">
@@ -45,6 +56,7 @@
     import Summary from '@/components/Summary'
 
     const today = new Date()
+    today.setHours(0, 0, 0, 0)
 
     export default {
         name: 'DatePicker',
@@ -64,6 +76,10 @@
             }
         },
         methods: {
+            dateSelected(date) {
+                this.checkout = date
+            },
+
             goToNextMonth() {
                 this.currentMonth += 1
             },

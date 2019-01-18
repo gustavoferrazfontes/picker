@@ -1,13 +1,30 @@
 <template>
-    <span :class="['day', { past: isBeforeToday }]">
+    <button
+        :class="['day', {
+            checkin: isCheckin,
+            checkout: isCheckout,
+            past: isBeforeToday,
+            range: isInRange,
+        }]"
+        :disabled="isBeforeToday"
+        v-on="$listeners"
+    >
         {{ day }}
-    </span>
+    </button>
 </template>
 
 <script>
     export default {
         name: 'Day',
         props: {
+            checkin: {
+                required: true,
+                type: Date,
+            },
+            checkout: {
+                required: true,
+                type: Date,
+            },
             date: {
                 required: true,
                 type: Date,
@@ -28,6 +45,19 @@
 
                 return this.date < today
             },
+
+            isCheckin() {
+                return this.date.getTime() === this.checkin.getTime()
+            },
+
+            isCheckout() {
+                return this.date.getTime() === this.checkout.getTime()
+            },
+
+            isInRange() {
+                return this.date.getTime() > this.checkin.getTime()
+                    && this.date.getTime() < this.checkout.getTime()
+            },
         },
     }
 </script>
@@ -46,15 +76,44 @@
         transition: $transition;
         transition-property: border-color, color;
 
+        &:focus {
+            outline: none;
+        }
+
         &:hover {
             border-color: $blue;
             color: $blue;
             cursor: pointer;
         }
 
+        &.checkin,
+        &.checkout {
+            background-color: $blue;
+            color: #fff;
+        }
+
+        &.checkin {
+            border-top-right-radius: 0;
+            border-bottom-right-radius: 0;
+        }
+
+        &.checkout {
+            border-top-left-radius: 0;
+            border-bottom-left-radius: 0;
+        }
+
         &.past {
             color: $gray;
-            pointer-events: none;
+            cursor: not-allowed;
+
+            &:hover {
+                border-color: transparent;
+            }
+        }
+
+        &.range {
+            background-color: rgba($blue, 0.1);
+            border-radius: 0;
         }
     }
 </style>
