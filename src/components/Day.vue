@@ -58,11 +58,14 @@
                 const today = new Date()
                 today.setHours(0, 0, 0, 0)
 
-                return this.picker === 'checkin'
-                    ? this.date < today
-                    : this.date < today
-                        || this.date < this.checkin
-                        || this.date > this.lastPossibleDate
+                const oneYearFromNow = new Date(today)
+                oneYearFromNow.setYear(today.getFullYear() + 1)
+
+                if (this.date < today || this.date > oneYearFromNow) return true
+
+                return this.picker === 'checkout'
+                    ? this.date < this.checkin || this.date > this.lastPossibleDate
+                    : false
             },
 
             isInRange() {
