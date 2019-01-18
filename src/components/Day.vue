@@ -4,6 +4,7 @@
             checkin: isCheckin,
             checkout: isCheckout,
             range: isInRange,
+            today: isToday,
         }]"
         :disabled="isDisabled"
         v-on="$listeners"
@@ -55,13 +56,10 @@
             },
 
             isDisabled() {
-                const today = new Date()
-                today.setHours(0, 0, 0, 0)
+                const oneYearFromNow = new Date(this.today)
+                oneYearFromNow.setYear(this.today.getFullYear() + 1)
 
-                const oneYearFromNow = new Date(today)
-                oneYearFromNow.setYear(today.getFullYear() + 1)
-
-                if (this.date < today || this.date > oneYearFromNow) return true
+                if (this.date < this.today || this.date > oneYearFromNow) return true
 
                 return this.picker === 'checkout'
                     ? this.date < this.checkin || this.date > this.lastPossibleDate
@@ -70,6 +68,17 @@
 
             isInRange() {
                 return this.date > this.checkin && this.date < this.checkout
+            },
+
+            isToday() {
+                return this.date.getTime() === this.today.getTime()
+            },
+
+            today() {
+                const today = new Date()
+                today.setHours(0, 0, 0, 0)
+
+                return today
             },
         },
     }
@@ -127,6 +136,10 @@
         &.range {
             background-color: rgba($blue, 0.1);
             border-radius: 0;
+        }
+
+        &.today {
+            border-color: $blue;
         }
     }
 </style>
