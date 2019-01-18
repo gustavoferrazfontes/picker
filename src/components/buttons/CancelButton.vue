@@ -5,10 +5,9 @@
 </template>
 
 <script>
-    import { Component, Vue } from 'vue-property-decorator'
-
-    @Component
-    export default class CancelButton extends Vue {}
+    export default {
+        name: 'CancelButton',
+    }
 </script>
 
 <style lang="scss" scoped>

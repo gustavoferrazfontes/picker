@@ -22,21 +22,15 @@
     </div>
 </template>
 
-<script lang="ts">
-    import { Component, Vue } from 'vue-property-decorator'
-
-    // @ts-ignore import/named
+<script>
     import CancelButton from '@/components/buttons/CancelButton'
-    // @ts-ignore import/named
     import ConfirmButton from '@/components/buttons/ConfirmButton'
-    // @ts-ignore import/namedx
     import Flex from '@/components/Flex'
-    // @ts-ignore import/namedx
     import NavigationButton from '@/components/buttons/NavigationButton'
-    // @ts-ignore import/namedx
     import Week from '@/components/Week'
 
-    @Component({
+    export default {
+        name: 'DatePicker',
         components: {
             CancelButton,
             ConfirmButton,
@@ -44,8 +38,7 @@
             NavigationButton,
             Week,
         },
-    })
-    export default class DatePicker extends Vue {}
+    }
 </script>
 
 <style lang="scss" scoped>

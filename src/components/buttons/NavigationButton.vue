@@ -5,10 +5,9 @@
 </template>
 
 <script>
-    import { Component, Vue } from 'vue-property-decorator'
-
-    @Component
-    export default class NavigationButton extends Vue {}
+    export default {
+        name: 'NavigationButton',
+    }
 </script>
 
 <style lang="scss" scoped>

@@ -11,16 +11,14 @@
 </template>
 
 <script>
-    import { Component, Vue } from 'vue-property-decorator'
-
     import Flex from './Flex'
 
-    @Component({
+    export default {
+        name: 'Week',
         components: {
             Flex,
         },
-    })
-    export default class Week extends Vue {}
+    }
 </script>
 
 <style lang="scss" scoped>
