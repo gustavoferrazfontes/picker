@@ -18,6 +18,8 @@
                 :checkin="checkin"
                 :checkout="checkout"
                 :date="date"
+                :last-possible-date="lastPossibleDate"
+                :picker="picker"
                 @click="$emit('select', date)"
             />
 
@@ -50,9 +52,17 @@
                 required: true,
                 type: Date,
             },
+            lastPossibleDate: {
+                required: true,
+                type: Date,
+            },
             month: {
                 required: true,
                 type: Number,
+            },
+            picker: {
+                required: true,
+                type: String,
             },
         },
         computed: {

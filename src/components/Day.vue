@@ -3,10 +3,9 @@
         :class="['day', {
             checkin: isCheckin,
             checkout: isCheckout,
-            past: isBeforeToday,
             range: isInRange,
         }]"
-        :disabled="isBeforeToday"
+        :disabled="isDisabled"
         v-on="$listeners"
     >
         {{ day }}
@@ -29,6 +28,14 @@
                 required: true,
                 type: Date,
             },
+            lastPossibleDate: {
+                required: true,
+                type: Date,
+            },
+            picker: {
+                required: true,
+                type: String,
+            },
         },
         computed: {
             day() {
@@ -39,19 +46,23 @@
                 return Number(day)
             },
 
-            isBeforeToday() {
-                const today = new Date()
-                today.setHours(0, 0, 0, 0)
-
-                return this.date < today
-            },
-
             isCheckin() {
                 return this.date.getTime() === this.checkin.getTime()
             },
 
             isCheckout() {
                 return this.date.getTime() === this.checkout.getTime()
+            },
+
+            isDisabled() {
+                const today = new Date()
+                today.setHours(0, 0, 0, 0)
+
+                return this.picker === 'checkin'
+                    ? this.date < today
+                    : this.date < today
+                        || this.date < this.checkin
+                        || this.date > this.lastPossibleDate
             },
 
             isInRange() {
@@ -101,7 +112,7 @@
             border-bottom-left-radius: 0;
         }
 
-        &.past {
+        &[disabled] {
             color: $gray;
             cursor: not-allowed;
 

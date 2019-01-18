@@ -23,14 +23,18 @@
                 <Month
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
+                    :last-possible-date="lastPossibleDate"
                     :month="currentMonth"
+                    :picker="picker"
                     @select="dateSelected"
                 />
 
                 <Month
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
+                    :last-possible-date="lastPossibleDate"
                     :month="currentMonth + 1"
+                    :picker="picker"
                     @select="dateSelected"
                 />
             </div>
@@ -81,6 +85,15 @@
                 selectedCheckout: null,
             }
         },
+        computed: {
+            lastPossibleDate() {
+                const checkin = this.selectedCheckin || this.checkin
+                const lastPossibleDate = new Date(checkin)
+                lastPossibleDate.setDate(checkin.getDate() + 30)
+
+                return lastPossibleDate
+            },
+        },
         methods: {
             clearSelection() {
                 this.selectedCheckin = null
@@ -91,7 +104,13 @@
                 if (this.picker === 'checkin') this.selectedCheckin = date
                 else if (this.picker === 'checkout') this.selectedCheckout = date
 
-                if (date > (this.selectedCheckout || this.checkout)) this.selectedCheckout = date
+                const checkout = this.selectedCheckout || this.checkout
+                const checkoutIsAfterLastPossibleDate = checkout > this.lastPossibleDate
+                const dateIsAfterCheckout = date > checkout
+
+                if (checkoutIsAfterLastPossibleDate || dateIsAfterCheckout) {
+                    this.selectedCheckout = date
+                }
 
                 this.picker = this.picker === 'checkin' ? 'checkout' : 'checkin'
             },
