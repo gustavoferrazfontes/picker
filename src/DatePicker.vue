@@ -47,6 +47,7 @@
 
                 <CancelButton
                     class="datepicker-footer-cancel"
+                    :disabled="!selectedCheckin && !selectedCheckout"
                     @click="clearSelection"
                 />
                 <ConfirmButton class="datepicker-footer-confirm" />
@@ -96,6 +97,8 @@
         },
         methods: {
             clearSelection() {
+                this.currentMonth = this.initialMonth
+                this.picker = 'checkin'
                 this.selectedCheckin = null
                 this.selectedCheckout = null
             },

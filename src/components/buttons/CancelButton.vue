@@ -24,5 +24,10 @@
         &:hover {
             color: $blue;
         }
+
+        &[disabled] {
+            color: $gray-light;
+            cursor: not-allowed;
+        }
     }
 </style>
