@@ -25,6 +25,11 @@
             </div>
 
             <footer class="datepicker-footer">
+                <Summary
+                    :checkin="checkin"
+                    :checkout="checkout"
+                />
+
                 <CancelButton class="datepicker-footer-cancel" />
                 <ConfirmButton class="datepicker-footer-confirm" />
             </footer>
@@ -37,6 +42,7 @@
     import ConfirmButton from '@/components/buttons/ConfirmButton'
     import Month from '@/components/Month'
     import NavigationButton from '@/components/buttons/NavigationButton'
+    import Summary from '@/components/Summary'
 
     const today = new Date()
 
@@ -47,9 +53,12 @@
             ConfirmButton,
             Month,
             NavigationButton,
+            Summary,
         },
         data() {
             return {
+                checkin: today,
+                checkout: new Date(2019, 0, 20),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
             }
