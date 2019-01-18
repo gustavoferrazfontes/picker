@@ -1,5 +1,8 @@
 <template>
-    <button class="cancel-button">
+    <button
+        class="cancel-button"
+        v-on="$listeners"
+    >
         Clear
     </button>
 </template>

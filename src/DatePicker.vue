@@ -21,15 +21,15 @@
 
             <div class="datepicker-months">
                 <Month
-                    :checkin="checkin"
-                    :checkout="checkout"
+                    :checkin="selectedCheckin || checkin"
+                    :checkout="selectedCheckout || checkout"
                     :month="currentMonth"
                     @select="dateSelected"
                 />
 
                 <Month
-                    :checkin="checkin"
-                    :checkout="checkout"
+                    :checkin="selectedCheckin || checkin"
+                    :checkout="selectedCheckout || checkout"
                     :month="currentMonth + 1"
                     @select="dateSelected"
                 />
@@ -37,11 +37,14 @@
 
             <footer class="datepicker-footer">
                 <Summary
-                    :checkin="checkin"
-                    :checkout="checkout"
+                    :checkin="selectedCheckin || checkin"
+                    :checkout="selectedCheckout || checkout"
                 />
 
-                <CancelButton class="datepicker-footer-cancel" />
+                <CancelButton
+                    class="datepicker-footer-cancel"
+                    @click="clearSelection"
+                />
                 <ConfirmButton class="datepicker-footer-confirm" />
             </footer>
         </article>
@@ -73,11 +76,24 @@
                 checkout: new Date(2019, 0, 20),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
+                picker: 'checkin',
+                selectedCheckin: null,
+                selectedCheckout: null,
             }
         },
         methods: {
+            clearSelection() {
+                this.selectedCheckin = null
+                this.selectedCheckout = null
+            },
+
             dateSelected(date) {
-                this.checkout = date
+                if (this.picker === 'checkin') this.selectedCheckin = date
+                else if (this.picker === 'checkout') this.selectedCheckout = date
+
+                if (date > (this.selectedCheckout || this.checkout)) this.selectedCheckout = date
+
+                this.picker = this.picker === 'checkin' ? 'checkout' : 'checkin'
             },
 
             goToNextMonth() {

@@ -1,5 +1,8 @@
 <template>
-    <button class="confirm-button">
+    <button
+        class="confirm-button"
+        v-on="$listeners"
+    >
         Apply
     </button>
 </template>

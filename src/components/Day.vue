@@ -55,8 +55,7 @@
             },
 
             isInRange() {
-                return this.date.getTime() > this.checkin.getTime()
-                    && this.date.getTime() < this.checkout.getTime()
+                return this.date > this.checkin && this.date < this.checkout
             },
         },
     }
@@ -92,12 +91,12 @@
             color: #fff;
         }
 
-        &.checkin {
+        &.checkin:not(.checkout) {
             border-top-right-radius: 0;
             border-bottom-right-radius: 0;
         }
 
-        &.checkout {
+        &.checkout:not(.checkin) {
             border-top-left-radius: 0;
             border-bottom-left-radius: 0;
         }
