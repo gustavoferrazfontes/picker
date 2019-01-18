@@ -1,5 +1,5 @@
-<template>
-    <Flex class="week">
+<template functional>
+    <div class="week">
         <span
             v-for="day in ['Mo', 'Tu', 'We', 'Th', 'Fr', 'Sa', 'Su']"
             :key="day"
@@ -7,27 +7,17 @@
         >
             {{ day }}
         </span>
-    </Flex>
+    </div>
 </template>
-
-<script>
-    import Flex from './Flex'
-
-    export default {
-        name: 'Week',
-        components: {
-            Flex,
-        },
-    }
-</script>
 
 <style lang="scss" scoped>
     .week {
-        width: 274px;
+        display: flex;
 
         &-day {
-            color: $gray-dark;
+            width: $day-size;
             font-size: 14px;
+            text-align: center;
         }
     }
 </style>

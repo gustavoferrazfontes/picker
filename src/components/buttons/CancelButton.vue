@@ -4,12 +4,6 @@
     </button>
 </template>
 
-<script>
-    export default {
-        name: 'CancelButton',
-    }
-</script>
-
 <style lang="scss" scoped>
     .cancel-button {
         color: $gray;
@@ -18,7 +12,7 @@
         letter-spacing: 0.5px;
         border: none;
         cursor: pointer;
-        transition: color 0.2s ease-out;
+        transition: color $transition;
 
         &:focus {
             outline: none;

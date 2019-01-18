@@ -4,12 +4,6 @@
     </button>
 </template>
 
-<script>
-    export default {
-        name: 'ConfirmButton',
-    }
-</script>
-
 <style lang="scss" scoped>
     .confirm-button {
         padding: 12px 32px;
@@ -21,7 +15,7 @@
         letter-spacing: 0.5px;
         border: none;
         cursor: pointer;
-        transition: background-color 0.2s ease-out;
+        transition: background-color $transition;
 
         &:focus {
             outline: none;
