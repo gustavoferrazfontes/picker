@@ -33,8 +33,6 @@
 </template>
 
 <script>
-    import { getMonth } from 'date-fns'
-
     import CancelButton from '@/components/buttons/CancelButton'
     import ConfirmButton from '@/components/buttons/ConfirmButton'
     import Month from '@/components/Month'
@@ -52,8 +50,8 @@
         },
         data() {
             return {
-                currentMonth: getMonth(today),
-                initialMonth: getMonth(today),
+                currentMonth: today.getMonth(),
+                initialMonth: today.getMonth(),
             }
         },
         methods: {

@@ -27,14 +27,6 @@
 </template>
 
 <script>
-    import {
-        eachDayOfInterval,
-        endOfMonth,
-        getDay,
-        getYear,
-        startOfMonth,
-    } from 'date-fns'
-
     import Day from './Day'
     import Spacer from './Spacer'
     import Week from './Week'
@@ -69,22 +61,28 @@
             },
 
             days() {
-                return eachDayOfInterval({
-                    start: this.firstDay,
-                    end: this.lastDay,
-                })
+                const currentDate = this.firstDay
+                const days = []
+
+                while (this.firstDay <= this.lastDay) {
+                    days.push(new Date(currentDate.getTime()))
+
+                    currentDate.setDate(currentDate.getDate() + 1)
+                }
+
+                return days
             },
 
             firstDay() {
-                return startOfMonth(this.date)
+                return new Date(this.date.getFullYear(), this.date.getMonth())
             },
 
             lastDay() {
-                return endOfMonth(this.date)
+                return new Date(this.date.getFullYear(), this.date.getMonth() + 1, 0)
             },
 
             spacers() {
-                const before = Math.max(getDay(this.firstDay) - 1, 0)
+                const before = Math.max(this.firstDay.getDay() - 1, 0)
                 const after = 7 * 6 - this.days.length - before
 
                 return {
@@ -94,7 +92,7 @@
             },
 
             year() {
-                return getYear(this.date)
+                return this.date.getFullYear()
             },
         },
     }
