@@ -135,7 +135,7 @@
             maxCheckout() {
                 const checkin = this.selectedCheckin || this.checkin
                 const maxCheckout = new Date(checkin)
-                maxCheckout.setDate(checkin.getDate() + 30)
+                maxCheckout.setDate(checkin.getDate() + this.maxStay)
 
                 return maxCheckout
             },
