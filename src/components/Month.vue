@@ -15,13 +15,8 @@
             <Day
                 v-for="date in dates"
                 :key="`${date}`"
-                :checkin="checkin"
-                :checkout="checkout"
+                v-bind="$attrs"
                 :date="date"
-                :max-checkout="maxCheckout"
-                :max-date="maxDate"
-                :min-date="minDate"
-                :picker="picker"
                 @click="$emit('select', date)"
             />
 
@@ -46,50 +41,26 @@
             Week,
         },
         props: {
-            checkin: {
-                required: true,
-                type: Date,
-            },
-            checkout: {
-                required: true,
-                type: Date,
-            },
-            maxCheckout: {
-                required: true,
-                type: Date,
-            },
-            maxDate: {
-                required: true,
-                type: Date,
-            },
-            minDate: {
-                required: true,
-                type: Date,
-            },
             month: {
                 required: true,
                 type: Number,
             },
-            picker: {
-                required: false,
-                type: String,
-                default: '',
-            },
         },
         computed: {
             dateString() {
-                const month = this.firstDay.toLocaleString('en-us', {
+                const year = this.normalizedDate.getFullYear()
+                const month = this.startOfMonth.toLocaleString('en-us', {
                     month: 'long',
                 })
 
-                return `${month} ${this.year}`
+                return `${month} ${year}`
             },
 
             dates() {
-                const currentDate = this.firstDay
+                const currentDate = this.startOfMonth
                 const dates = []
 
-                while (this.firstDay <= this.lastDay) {
+                while (this.startOfMonth <= this.endOfMonth) {
                     dates.push(new Date(currentDate.getTime()))
 
                     currentDate.setDate(currentDate.getDate() + 1)
@@ -98,11 +69,7 @@
                 return dates
             },
 
-            firstDay() {
-                return new Date(this.normalizedDate.getFullYear(), this.normalizedDate.getMonth())
-            },
-
-            lastDay() {
+            endOfMonth() {
                 return new Date(
                     this.normalizedDate.getFullYear(),
                     this.normalizedDate.getMonth() + 1, 0,
@@ -117,7 +84,7 @@
             },
 
             spacers() {
-                const before = Math.max(this.firstDay.getDay() - 1, 0)
+                const before = Math.max(this.startOfMonth.getDay() - 1, 0)
                 const after = 7 * 6 - this.dates.length - before
 
                 return {
@@ -126,8 +93,11 @@
                 }
             },
 
-            year() {
-                return this.normalizedDate.getFullYear()
+            startOfMonth() {
+                return new Date(
+                    this.normalizedDate.getFullYear(),
+                    this.normalizedDate.getMonth(),
+                )
             },
         },
     }

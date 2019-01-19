@@ -40,24 +40,14 @@
 
             <div class="datepicker-months">
                 <Month
+                    v-for="n in months"
+                    :key="n"
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
                     :max-checkout="maxCheckout"
                     :max-date="maxDate"
                     :min-date="minDate"
-                    :month="currentMonth"
-                    :picker="picker"
-                    @select="dateSelected"
-                />
-
-                <Month
-                    v-if="months === 2"
-                    :checkin="selectedCheckin || checkin"
-                    :checkout="selectedCheckout || checkout"
-                    :max-checkout="maxCheckout"
-                    :max-date="maxDate"
-                    :min-date="minDate"
-                    :month="currentMonth + 1"
+                    :month="currentMonth + (n - 1)"
                     :picker="picker"
                     @select="dateSelected"
                 />
