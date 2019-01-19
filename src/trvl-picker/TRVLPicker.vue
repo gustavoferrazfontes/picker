@@ -1,5 +1,5 @@
 <template>
-    <div id="app">
+    <div>
         <input
             :class="['trvl-picker-input', {
                 active: picker === 'checkin',
