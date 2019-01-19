@@ -172,6 +172,7 @@
         border: 1px solid $gray-light;
         border-radius: 8px;
         box-shadow: 0 1px 10px rgba(#000, 0.07);
+        box-sizing: border-box;
         color: $gray-dark;
         font-family: proxima-nova;
 
