@@ -1,4 +1,4 @@
-# datepicker
+# trvl-picker
 
 ## Project setup
 ```

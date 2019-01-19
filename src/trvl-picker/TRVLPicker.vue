@@ -1,7 +1,7 @@
 <template>
     <div id="app">
         <input
-            :class="['datepicker-input', {
+            :class="['trvl-picker-input', {
                 active: picker === 'checkin',
             }]"
             :value="format(checkin)"
@@ -9,7 +9,7 @@
             @click="pick('checkin')"
         >
         <input
-            :class="['datepicker-input', {
+            :class="['trvl-picker-input', {
                 active: picker === 'checkout',
             }]"
             :value="format(checkout)"
@@ -18,28 +18,28 @@
         >
 
         <article
-            :class="['datepicker', {
+            :class="['trvl-picker', {
                 single: months === 1,
                 double: months === 2,
                 triple: months === 3,
             }]"
         >
-            <header class="datepicker-header">
+            <header class="trvl-picker-header">
                 <NavigationButton
-                    class="datepicker-header-previous"
+                    class="trvl-picker-header-previous"
                     direction="left"
                     :disabled="currentMonth === initialMonth"
                     @click="goToPreviousMonth"
                 />
 
                 <NavigationButton
-                    class="datepicker-header-next"
+                    class="trvl-picker-header-next"
                     direction="right"
                     @click="goToNextMonth"
                 />
             </header>
 
-            <div class="datepicker-months">
+            <div class="trvl-picker-months">
                 <Month
                     v-for="n in months"
                     :key="n"
@@ -54,13 +54,13 @@
                 />
             </div>
 
-            <footer class="datepicker-footer">
+            <footer class="trvl-picker-footer">
                 <Summary
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
                 />
 
-                <aside class="datepicker-footer-buttons">
+                <aside class="trvl-picker-footer-buttons">
                     <ClearButton
                         :disabled="!selectedCheckin && !selectedCheckout"
                         @click="clearSelection"
@@ -73,11 +73,13 @@
 </template>
 
 <script>
-    import ApplyButton from '@/components/buttons/ApplyButton'
-    import ClearButton from '@/components/buttons/ClearButton'
-    import Month from '@/components/Month'
-    import NavigationButton from '@/components/buttons/NavigationButton'
-    import Summary from '@/components/Summary'
+    import {
+        ApplyButton,
+        ClearButton,
+        Month,
+        NavigationButton,
+        Summary,
+    } from './components'
 
     const today = new Date()
     today.setHours(0, 0, 0, 0)
@@ -86,7 +88,7 @@
     oneYearFromNow.setYear(today.getFullYear() + 1)
 
     export default {
-        name: 'DatePicker',
+        name: 'TRVLPicker',
         components: {
             ApplyButton,
             ClearButton,
@@ -185,7 +187,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .datepicker {
+    .trvl-picker {
         padding: 24px 16px;
         background-color: #fff;
         border: 1px solid $gray-light;
