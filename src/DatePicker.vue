@@ -98,7 +98,7 @@
                 checkout: new Date(2019, 0, 21),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
-                picker: 'checkin',
+                picker: null,
                 selectedCheckin: null,
                 selectedCheckout: null,
             }
