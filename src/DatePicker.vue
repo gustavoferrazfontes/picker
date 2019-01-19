@@ -42,7 +42,9 @@
                 <Month
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
-                    :last-possible-date="lastPossibleDate"
+                    :max-checkout="maxCheckout"
+                    :max-date="maxDate"
+                    :min-date="minDate"
                     :month="currentMonth"
                     :picker="picker"
                     @select="dateSelected"
@@ -52,7 +54,9 @@
                     v-if="months === 2"
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
-                    :last-possible-date="lastPossibleDate"
+                    :max-checkout="maxCheckout"
+                    :max-date="maxDate"
+                    :min-date="minDate"
                     :month="currentMonth + 1"
                     :picker="picker"
                     @select="dateSelected"
@@ -87,6 +91,9 @@
     const today = new Date()
     today.setHours(0, 0, 0, 0)
 
+    const oneYearFromNow = new Date(today)
+    oneYearFromNow.setYear(today.getFullYear() + 1)
+
     export default {
         name: 'DatePicker',
         components: {
@@ -95,6 +102,23 @@
             Month,
             NavigationButton,
             Summary,
+        },
+        props: {
+            maxDate: {
+                required: false,
+                type: Date,
+                default: () => new Date(oneYearFromNow),
+            },
+            maxStay: {
+                required: false,
+                type: Number,
+                default: 30,
+            },
+            minDate: {
+                required: false,
+                type: Date,
+                default: () => new Date(today),
+            },
         },
         data() {
             return {
@@ -109,12 +133,12 @@
             }
         },
         computed: {
-            lastPossibleDate() {
+            maxCheckout() {
                 const checkin = this.selectedCheckin || this.checkin
-                const lastPossibleDate = new Date(checkin)
-                lastPossibleDate.setDate(checkin.getDate() + 30)
+                const maxCheckout = new Date(checkin)
+                maxCheckout.setDate(checkin.getDate() + 30)
 
-                return lastPossibleDate
+                return maxCheckout
             },
         },
         methods: {
@@ -139,10 +163,10 @@
                 else if (this.picker === 'checkout') this.selectedCheckout = date
 
                 const checkout = this.selectedCheckout || this.checkout
-                const checkoutIsAfterLastPossibleDate = checkout > this.lastPossibleDate
+                const checkoutIsAfterMaxCheckout = checkout > this.maxCheckout
                 const dateIsAfterCheckout = date > checkout
 
-                if (checkoutIsAfterLastPossibleDate || dateIsAfterCheckout) {
+                if (checkoutIsAfterMaxCheckout || dateIsAfterCheckout) {
                     this.selectedCheckout = date
                 }
 

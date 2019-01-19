@@ -32,7 +32,15 @@
                 required: true,
                 type: Date,
             },
-            lastPossibleDate: {
+            maxCheckout: {
+                required: true,
+                type: Date,
+            },
+            maxDate: {
+                required: true,
+                type: Date,
+            },
+            minDate: {
                 required: true,
                 type: Date,
             },
@@ -60,13 +68,10 @@
             },
 
             isDisabled() {
-                const oneYearFromNow = new Date(today)
-                oneYearFromNow.setYear(today.getFullYear() + 1)
-
-                if (this.date < today || this.date > oneYearFromNow) return true
+                if (this.date < this.minDate || this.date > this.maxDate) return true
 
                 return this.picker === 'checkout'
-                    ? this.date < this.checkin || this.date > this.lastPossibleDate
+                    ? this.date < this.checkin || this.date > this.maxCheckout
                     : false
             },
 

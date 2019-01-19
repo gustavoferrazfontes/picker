@@ -18,7 +18,9 @@
                 :checkin="checkin"
                 :checkout="checkout"
                 :date="date"
-                :last-possible-date="lastPossibleDate"
+                :max-checkout="maxCheckout"
+                :max-date="maxDate"
+                :min-date="minDate"
                 :picker="picker"
                 @click="$emit('select', date)"
             />
@@ -52,7 +54,15 @@
                 required: true,
                 type: Date,
             },
-            lastPossibleDate: {
+            maxCheckout: {
+                required: true,
+                type: Date,
+            },
+            maxDate: {
+                required: true,
+                type: Date,
+            },
+            minDate: {
                 required: true,
                 type: Date,
             },
