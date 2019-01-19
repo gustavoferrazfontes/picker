@@ -1,6 +1,7 @@
 <template functional>
     <button
-        class="apply-button"
+        :class="['apply-button', data.staticClass || '']"
+        v-bind="data.attrs"
         v-on="listeners"
     >
         Apply

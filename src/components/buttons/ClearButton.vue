@@ -1,6 +1,6 @@
 <template functional>
     <button
-        class="clear-button"
+        :class="['clear-button', data.staticClass || '']"
         v-bind="data.attrs"
         v-on="listeners"
     >
