@@ -97,6 +97,14 @@
             Summary,
         },
         props: {
+            checkin: {
+                required: true,
+                type: Date,
+            },
+            checkout: {
+                required: true,
+                type: Date,
+            },
             maxDate: {
                 required: false,
                 type: Date,
@@ -115,8 +123,6 @@
         },
         data() {
             return {
-                checkin: today,
-                checkout: new Date(2019, 0, 21),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
                 months: 2,
@@ -136,8 +142,8 @@
         },
         methods: {
             applySelection() {
-                this.checkin = this.selectedCheckin || this.checkin
-                this.checkout = this.selectedCheckout || this.checkout
+                this.$emit('update:checkin', this.selectedCheckin || this.checkin)
+                this.$emit('update:checkout', this.selectedCheckout || this.checkout)
 
                 this.clearSelection()
 
