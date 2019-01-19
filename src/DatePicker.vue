@@ -21,6 +21,7 @@
             :class="['datepicker', {
                 single: months === 1,
                 double: months === 2,
+                triple: months === 3,
             }]"
         >
             <header class="datepicker-header">
@@ -215,6 +216,15 @@
             );
         }
 
+        &.triple {
+            width: calc(
+                #{$day-size} * 21
+                + #{$padding-width} * 3
+                + #{$borders-width}
+                + #{$month-gap} * 2
+            );
+        }
+
         &-input {
             &:focus {
                 outline: none;
@@ -258,7 +268,8 @@
                 flex-direction: column;
             }
 
-            .double & {
+            .double &,
+            .triple & {
                 flex-direction: row;
                 margin-top: 40px;
             }
@@ -271,7 +282,8 @@
                     width: 100%;
                 }
 
-                .double & {
+                .double &,
+                .triple & {
                     width: auto;
                 }
             }
