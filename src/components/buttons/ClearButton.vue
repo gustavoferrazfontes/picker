@@ -10,7 +10,7 @@
 
 <style lang="scss" scoped>
     .clear-button {
-        padding: 12px 32px;
+        padding: 12px 32px 12px 0;
         background-color: #fff;
         color: $gray;
         font-size: 15px;

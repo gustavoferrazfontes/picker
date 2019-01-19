@@ -17,7 +17,12 @@
             @click="pick('checkout')"
         >
 
-        <article class="datepicker">
+        <article
+            :class="['datepicker', {
+                single: months === 1,
+                double: months === 2,
+            }]"
+        >
             <header class="datepicker-header">
                 <NavigationButton
                     class="datepicker-header-previous"
@@ -44,6 +49,7 @@
                 />
 
                 <Month
+                    v-if="months === 2"
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
                     :last-possible-date="lastPossibleDate"
@@ -96,6 +102,7 @@
                 checkout: new Date(2019, 0, 21),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
+                months: 2,
                 picker: null,
                 selectedCheckin: null,
                 selectedCheckout: null,
@@ -165,7 +172,6 @@
 <style lang="scss" scoped>
     .datepicker {
         padding: 24px 16px;
-        width: 658px;
         background-color: #fff;
         border: 1px solid $gray-light;
         border-radius: 8px;
@@ -173,6 +179,27 @@
         box-sizing: border-box;
         color: $gray-dark;
         font-family: proxima-nova;
+
+        $borders-width: 2px;
+        $month-gap: 32px;
+        $padding-width: calc(16px * 2);
+
+        &.single {
+            width: calc(
+                #{$day-size} * 7
+                + #{$padding-width}
+                + #{$borders-width}
+            );
+        }
+
+        &.double {
+            width: calc(
+                #{$day-size} * 14
+                + #{$padding-width} * 2
+                + #{$borders-width}
+                + #{$month-gap}
+            );
+        }
 
         &-input {
             &:focus {
@@ -211,8 +238,29 @@
         }
 
         &-footer {
-            margin-top: 40px;
             padding: 0 8px;
+
+            .single & {
+                flex-direction: column;
+            }
+
+            .double & {
+                flex-direction: row;
+                margin-top: 40px;
+            }
+
+            &-buttons {
+                display: flex;
+                justify-content: space-between;
+
+                .single & {
+                    width: 100%;
+                }
+
+                .double & {
+                    width: auto;
+                }
+            }
         }
     }
 </style>

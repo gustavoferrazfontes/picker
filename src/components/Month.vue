@@ -125,7 +125,7 @@
 
 <style lang="scss" scoped>
     .month {
-        width: $month-size;
+        width: calc(#{$day-size} * 7);
 
         &-date {
             margin-bottom: 24px;
