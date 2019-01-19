@@ -1,19 +1,27 @@
-<template>
+<template functional>
     <button
-        class="navigation-button"
-        v-on="$listeners"
+        :class="['navigation-button', data.staticClass || '']"
+        v-bind="data.attrs"
+        v-on="listeners"
     >
-        {{ text }}
+        <template v-if="props.direction === 'left'">
+            ←
+        </template>
+        <template v-if="props.direction === 'right'">
+            →
+        </template>
     </button>
 </template>
 
 <script>
     export default {
-        name: 'NavigationButton',
         props: {
-            text: {
+            direction: {
                 required: true,
                 type: String,
+                validator(direction) {
+                    return ['left', 'right'].includes(direction)
+                },
             },
         },
     }
@@ -23,6 +31,7 @@
     .navigation-button {
         height: $day-size;
         width: $day-size;
+        background-color: #fff;
         color: $gray;
         font-size: 22px;
         border: none;

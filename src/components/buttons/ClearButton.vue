@@ -1,14 +1,17 @@
-<template>
+<template functional>
     <button
-        class="cancel-button"
-        v-on="$listeners"
+        class="clear-button"
+        v-bind="data.attrs"
+        v-on="listeners"
     >
         Clear
     </button>
 </template>
 
 <style lang="scss" scoped>
-    .cancel-button {
+    .clear-button {
+        padding: 12px 32px;
+        background-color: #fff;
         color: $gray;
         font-size: 15px;
         font-weight: 600;

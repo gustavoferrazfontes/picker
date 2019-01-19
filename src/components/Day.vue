@@ -88,6 +88,7 @@
         justify-content: center;
         height: $day-size;
         width: $day-size;
+        background-color: #fff;
         border-radius: 4px;
         border: 1px solid transparent;
         box-sizing: border-box;

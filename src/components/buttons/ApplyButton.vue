@@ -1,14 +1,14 @@
-<template>
+<template functional>
     <button
-        class="confirm-button"
-        v-on="$listeners"
+        class="apply-button"
+        v-on="listeners"
     >
         Apply
     </button>
 </template>
 
 <style lang="scss" scoped>
-    .confirm-button {
+    .apply-button {
         padding: 12px 32px;
         background-color: $pink;
         border-radius: 8px;

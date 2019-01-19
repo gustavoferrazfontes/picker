@@ -21,14 +21,14 @@
             <header class="datepicker-header">
                 <NavigationButton
                     class="datepicker-header-previous"
-                    text="←"
+                    direction="left"
                     :disabled="currentMonth === initialMonth"
                     @click="goToPreviousMonth"
                 />
 
                 <NavigationButton
                     class="datepicker-header-next"
-                    text="→"
+                    direction="right"
                     @click="goToNextMonth"
                 />
             </header>
@@ -59,23 +59,21 @@
                     :checkout="selectedCheckout || checkout"
                 />
 
-                <CancelButton
-                    class="datepicker-footer-cancel"
-                    :disabled="!selectedCheckin && !selectedCheckout"
-                    @click="clearSelection"
-                />
-                <ConfirmButton
-                    class="datepicker-footer-confirm"
-                    @click="applySelection"
-                />
+                <aside class="datepicker-footer-buttons">
+                    <ClearButton
+                        :disabled="!selectedCheckin && !selectedCheckout"
+                        @click="clearSelection"
+                    />
+                    <ApplyButton @click="applySelection" />
+                </aside>
             </footer>
         </article>
     </div>
 </template>
 
 <script>
-    import CancelButton from '@/components/buttons/CancelButton'
-    import ConfirmButton from '@/components/buttons/ConfirmButton'
+    import ApplyButton from '@/components/buttons/ApplyButton'
+    import ClearButton from '@/components/buttons/ClearButton'
     import Month from '@/components/Month'
     import NavigationButton from '@/components/buttons/NavigationButton'
     import Summary from '@/components/Summary'
@@ -86,8 +84,8 @@
     export default {
         name: 'DatePicker',
         components: {
-            CancelButton,
-            ConfirmButton,
+            ApplyButton,
+            ClearButton,
             Month,
             NavigationButton,
             Summary,
@@ -197,17 +195,17 @@
         &-header {
             position: relative;
 
-            &-previous,
-            &-next {
+            /deep/ &-previous,
+            /deep/ &-next {
                 position: absolute;
                 top: -12px;
             }
 
-            &-previous {
+            /deep/ &-previous {
                 left: 0;
             }
 
-            &-next {
+            /deep/ &-next {
                 right: 0;
             }
         }
@@ -215,14 +213,6 @@
         &-footer {
             margin-top: 40px;
             padding: 0 8px;
-
-            &-cancel {
-                margin-left: auto;
-            }
-
-            &-confirm {
-                margin-left: 40px;
-            }
         }
     }
 </style>
