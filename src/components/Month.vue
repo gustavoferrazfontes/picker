@@ -61,8 +61,9 @@
                 type: Number,
             },
             picker: {
-                required: true,
+                required: false,
                 type: String,
+                default: '',
             },
         },
         computed: {

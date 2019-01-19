@@ -34,8 +34,9 @@
                 type: Date,
             },
             picker: {
-                required: true,
+                required: false,
                 type: String,
+                default: '',
             },
         },
         computed: {

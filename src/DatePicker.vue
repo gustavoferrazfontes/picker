@@ -1,7 +1,21 @@
 <template>
     <div id="app">
-        <input class="datepicker-input">
-        <input class="datepicker-input">
+        <input
+            :class="['datepicker-input', {
+                active: picker === 'checkin',
+            }]"
+            :value="format(checkin)"
+            readonly
+            @click="pick('checkin')"
+        >
+        <input
+            :class="['datepicker-input', {
+                active: picker === 'checkout',
+            }]"
+            :value="format(checkout)"
+            readonly
+            @click="pick('checkout')"
+        >
 
         <article class="datepicker">
             <header class="datepicker-header">
@@ -81,7 +95,7 @@
         data() {
             return {
                 checkin: today,
-                checkout: new Date(2019, 0, 20),
+                checkout: new Date(2019, 0, 21),
                 currentMonth: today.getMonth(),
                 initialMonth: today.getMonth(),
                 picker: 'checkin',
@@ -100,10 +114,12 @@
         },
         methods: {
             applySelection() {
-                this.checkin = this.selectedCheckin
-                this.checkout = this.selectedCheckout
+                this.checkin = this.selectedCheckin || this.checkin
+                this.checkout = this.selectedCheckout || this.checkout
 
                 this.clearSelection()
+
+                this.picker = null
             },
 
             clearSelection() {
@@ -125,7 +141,11 @@
                     this.selectedCheckout = date
                 }
 
-                this.picker = this.picker === 'checkin' ? 'checkout' : 'checkin'
+                this.picker = 'checkout'
+            },
+
+            format(date) {
+                return date.toLocaleDateString()
             },
 
             goToNextMonth() {
@@ -134,6 +154,11 @@
 
             goToPreviousMonth() {
                 this.currentMonth -= 1
+            },
+
+            pick(picker) {
+                if (this.picker === picker) this.picker = null
+                else this.picker = picker
             },
         },
     }
@@ -149,6 +174,16 @@
         box-shadow: 0 1px 10px rgba(#000, 0.07);
         color: $gray-dark;
         font-family: proxima-nova;
+
+        &-input {
+            &:focus {
+                outline: none;
+            }
+
+            &.active {
+                border: 1px solid $blue;
+            }
+        }
 
         &-header,
         &-months,
