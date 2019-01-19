@@ -14,6 +14,9 @@
 </template>
 
 <script>
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
     export default {
         name: 'Day',
         props: {
@@ -57,10 +60,10 @@
             },
 
             isDisabled() {
-                const oneYearFromNow = new Date(this.today)
-                oneYearFromNow.setYear(this.today.getFullYear() + 1)
+                const oneYearFromNow = new Date(today)
+                oneYearFromNow.setYear(today.getFullYear() + 1)
 
-                if (this.date < this.today || this.date > oneYearFromNow) return true
+                if (this.date < today || this.date > oneYearFromNow) return true
 
                 return this.picker === 'checkout'
                     ? this.date < this.checkin || this.date > this.lastPossibleDate
@@ -72,14 +75,7 @@
             },
 
             isToday() {
-                return this.date.getTime() === this.today.getTime()
-            },
-
-            today() {
-                const today = new Date()
-                today.setHours(0, 0, 0, 0)
-
-                return today
+                return this.date.getTime() === today.getTime()
             },
         },
     }
