@@ -172,11 +172,15 @@
                 else if (this.picker === 'checkout') this.selectedCheckout = date
 
                 const checkout = this.selectedCheckout || this.checkout
+
                 const checkoutIsAfterMaxCheckout = checkout > this.maxCheckout
                 const dateIsAfterCheckout = date > checkout
 
                 if (checkoutIsAfterMaxCheckout || dateIsAfterCheckout) {
-                    this.selectedCheckout = date
+                    const tomorrow = new Date(date)
+                    tomorrow.setDate(date.getDate() + 1)
+
+                    this.selectedCheckout = tomorrow
                 }
 
                 this.picker = 'checkout'
