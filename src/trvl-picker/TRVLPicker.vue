@@ -267,6 +267,7 @@
 
         &.vertical {
             width: calc(#{$month-width} * 1);
+            overflow: visible;
         }
 
         &-container {
