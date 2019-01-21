@@ -42,6 +42,7 @@
             Spacer,
             Week,
         },
+        inheritAttrs: false,
         props: {
             month: {
                 required: true,
