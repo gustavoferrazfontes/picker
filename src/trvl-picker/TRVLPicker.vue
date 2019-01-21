@@ -161,7 +161,7 @@
             },
         },
         watch: {
-            picker: 'toggleClickOutsideListener',
+            picker: 'toggleEventListeners',
         },
         methods: {
             applySelection() {
@@ -169,8 +169,7 @@
                 this.$emit('update:checkout', this.selectedCheckout || this.checkout)
 
                 this.clearSelection()
-
-                this.picker = null
+                this.close()
             },
 
             clearSelection() {
@@ -178,6 +177,10 @@
                 this.picker = 'checkin'
                 this.selectedCheckin = null
                 this.selectedCheckout = null
+            },
+
+            close() {
+                this.picker = null
             },
 
             dateSelected(date) {
@@ -215,20 +218,35 @@
                 const isNotInside = element => e.target !== element && !element.contains(e.target)
 
                 if (isNotInside(this.$refs.picker) && this.$refs.toggles.every(isNotInside)) {
-                    this.picker = null
+                    this.close()
+                }
+            },
+
+            handleKeyDown(e) {
+                if (['ArrowLeft', 'Left', 'h'].includes(e.key)) {
+                    this.goToPreviousMonth()
+                } else if (['ArrowRight', 'Right', 'l'].includes(e.key)) {
+                    this.goToNextMonth()
+                } else if (['Enter'].includes(e.key)) {
+                    this.applySelection()
+                } else if (['Escape'].includes(e.key)) {
+                    this.clearSelection()
+                    this.close()
                 }
             },
 
             pick(picker) {
-                if (this.picker === picker) this.picker = null
+                if (this.picker === picker) this.close()
                 else this.picker = picker
             },
 
-            toggleClickOutsideListener() {
+            toggleEventListeners() {
                 if (this.picker) {
                     document.body.addEventListener('click', this.handleClickOutside)
+                    document.body.addEventListener('keydown', this.handleKeyDown)
                 } else {
                     document.body.removeEventListener('click', this.handleClickOutside)
+                    document.body.removeEventListener('keydown', this.handleKeyDown)
                 }
             },
         },
