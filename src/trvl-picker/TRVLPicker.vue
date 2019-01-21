@@ -34,7 +34,7 @@
                         v-if="!vertical"
                         class="trvl-picker-header-previous"
                         direction="left"
-                        :disabled="currentMonth === initialMonth"
+                        :disabled="currentMonth === minDateMonth"
                         @click="goToPreviousMonth"
                     />
 
@@ -155,6 +155,10 @@
                 return maxCheckout
             },
 
+            minDateMonth() {
+                return this.minDate.getMonth()
+            },
+
             totalNumberOfMonths() {
                 return this.maxDate.getMonth() - this.minDate.getMonth()
                     + 12 * (this.maxDate.getFullYear() - this.minDate.getFullYear())
@@ -167,6 +171,8 @@
             applySelection() {
                 this.$emit('update:checkin', this.selectedCheckin || this.checkin)
                 this.$emit('update:checkout', this.selectedCheckout || this.checkout)
+
+                this.initialMonth = (this.selectedCheckin || this.checkin).getMonth()
 
                 this.clearSelection()
                 this.close()
