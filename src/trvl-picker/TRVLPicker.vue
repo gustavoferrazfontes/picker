@@ -1,5 +1,5 @@
 <template>
-    <div>
+    <div class="trvl-picker-container">
         <button
             v-for="type in ['checkin', 'checkout']"
             :key="type"
@@ -13,65 +13,71 @@
             />
         </button>
 
-        <article
-            :class="['trvl-picker', {
-                single: months === 1,
-                double: months === 2,
-                triple: months === 3,
-                vertical,
-            }]"
+        <Transition
+            name="fade"
+            appear
         >
-            <header class="trvl-picker-header">
-                <NavigationButton
-                    v-if="!vertical"
-                    class="trvl-picker-header-previous"
-                    direction="left"
-                    :disabled="currentMonth === initialMonth"
-                    @click="goToPreviousMonth"
-                />
-
-                <Week v-if="vertical" />
-
-                <NavigationButton
-                    v-if="!vertical"
-                    class="trvl-picker-header-next"
-                    direction="right"
-                    @click="goToNextMonth"
-                />
-            </header>
-
-            <div class="trvl-picker-months">
-                <Month
-                    v-for="month in (vertical ? totalNumberOfMonths : months)"
-                    :key="currentMonth + (month - 1)"
-                    class="trvl-picker-months-month"
-                    :checkin="selectedCheckin || checkin"
-                    :checkout="selectedCheckout || checkout"
-                    :max-checkout="maxCheckout"
-                    :max-date="maxDate"
-                    :min-date="minDate"
-                    :month="currentMonth + (month - 1)"
-                    :picker="picker"
-                    :vertical="vertical"
-                    @select="dateSelected"
-                />
-            </div>
-
-            <footer class="trvl-picker-footer">
-                <Summary
-                    :checkin="selectedCheckin || checkin"
-                    :checkout="selectedCheckout || checkout"
-                />
-
-                <aside class="trvl-picker-footer-buttons">
-                    <ClearButton
-                        :disabled="!selectedCheckin && !selectedCheckout"
-                        @click="clearSelection"
+            <article
+                v-if="picker"
+                :class="['trvl-picker', {
+                    single: months === 1,
+                    double: months === 2,
+                    triple: months === 3,
+                    vertical,
+                }]"
+            >
+                <header class="trvl-picker-header">
+                    <NavigationButton
+                        v-if="!vertical"
+                        class="trvl-picker-header-previous"
+                        direction="left"
+                        :disabled="currentMonth === initialMonth"
+                        @click="goToPreviousMonth"
                     />
-                    <ApplyButton @click="applySelection" />
-                </aside>
-            </footer>
-        </article>
+
+                    <Week v-if="vertical" />
+
+                    <NavigationButton
+                        v-if="!vertical"
+                        class="trvl-picker-header-next"
+                        direction="right"
+                        @click="goToNextMonth"
+                    />
+                </header>
+
+                <div class="trvl-picker-months">
+                    <Month
+                        v-for="month in (vertical ? totalNumberOfMonths : months)"
+                        :key="currentMonth + (month - 1)"
+                        class="trvl-picker-months-month"
+                        :checkin="selectedCheckin || checkin"
+                        :checkout="selectedCheckout || checkout"
+                        :max-checkout="maxCheckout"
+                        :max-date="maxDate"
+                        :min-date="minDate"
+                        :month="currentMonth + (month - 1)"
+                        :picker="picker"
+                        :vertical="vertical"
+                        @select="dateSelected"
+                    />
+                </div>
+
+                <footer class="trvl-picker-footer">
+                    <Summary
+                        :checkin="selectedCheckin || checkin"
+                        :checkout="selectedCheckout || checkout"
+                    />
+
+                    <aside class="trvl-picker-footer-buttons">
+                        <ClearButton
+                            :disabled="!selectedCheckin && !selectedCheckout"
+                            @click="clearSelection"
+                        />
+                        <ApplyButton @click="applySelection" />
+                    </aside>
+                </footer>
+            </article>
+        </Transition>
     </div>
 </template>
 
@@ -209,6 +215,8 @@
 
 <style lang="scss" scoped>
     .trvl-picker {
+        position: absolute;
+        top: calc(100% + 8px);
         background-color: #fff;
         border: 1px solid $gray-light;
         border-radius: 8px;
@@ -240,13 +248,26 @@
             width: calc(#{$month-width} * 1);
         }
 
+        &-container {
+            position: relative;
+        }
+
         &-toggle {
             padding: 0;
             background-color: transparent;
             border: none;
+            cursor: pointer;
+
+            &:focus {
+                outline: none;
+            }
 
             & + & {
                 margin-left: 8px;
+            }
+
+            * {
+                pointer-events: none;
             }
         }
 
@@ -336,5 +357,17 @@
                 }
             }
         }
+    }
+
+    .fade-enter-active,
+    .fade-leave-active {
+        transition: $transition;
+        transition-property: opacity, transform;
+    }
+
+    .fade-enter,
+    .fade-leave-to {
+        opacity: 0;
+        transform: translateY(8px);
     }
 </style>

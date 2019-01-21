@@ -53,7 +53,6 @@
     .picker {
         display: flex;
         flex-direction: column;
-        margin-bottom: 8px;
         border: 1px solid $gray-light;
         border-radius: 8px;
         padding: 8px 16px;
