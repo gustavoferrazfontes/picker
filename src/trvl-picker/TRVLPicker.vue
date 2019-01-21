@@ -3,6 +3,7 @@
         <button
             v-for="type in ['checkin', 'checkout']"
             :key="type"
+            ref="toggles"
             class="trvl-picker-toggle"
             @click="pick(type)"
         >
@@ -19,6 +20,7 @@
         >
             <article
                 v-if="picker"
+                ref="picker"
                 :class="['trvl-picker', {
                     single: months === 1,
                     double: months === 2,
@@ -157,6 +159,9 @@
                     + 12 * (this.maxDate.getFullYear() - this.minDate.getFullYear())
             },
         },
+        watch: {
+            picker: 'toggleClickOutsideListener',
+        },
         methods: {
             applySelection() {
                 this.$emit('update:checkin', this.selectedCheckin || this.checkin)
@@ -205,9 +210,25 @@
                 this.currentMonth -= 1
             },
 
+            handleClickOutside(e) {
+                const isNotInside = element => e.target !== element && !element.contains(e.target)
+
+                if (isNotInside(this.$refs.picker) && this.$refs.toggles.every(isNotInside)) {
+                    this.picker = null
+                }
+            },
+
             pick(picker) {
                 if (this.picker === picker) this.picker = null
                 else this.picker = picker
+            },
+
+            toggleClickOutsideListener() {
+                if (this.picker) {
+                    document.body.addEventListener('click', this.handleClickOutside)
+                } else {
+                    document.body.removeEventListener('click', this.handleClickOutside)
+                }
             },
         },
     }
