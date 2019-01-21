@@ -5,6 +5,7 @@
             :key="type"
             ref="toggles"
             class="trvl-picker-toggle"
+            type="button"
             @click="pick(type)"
         >
             <slot
