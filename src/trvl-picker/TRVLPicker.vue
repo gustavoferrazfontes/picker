@@ -18,17 +18,22 @@
                 single: months === 1,
                 double: months === 2,
                 triple: months === 3,
+                vertical,
             }]"
         >
             <header class="trvl-picker-header">
                 <NavigationButton
+                    v-if="!vertical"
                     class="trvl-picker-header-previous"
                     direction="left"
                     :disabled="currentMonth === initialMonth"
                     @click="goToPreviousMonth"
                 />
 
+                <Week v-if="vertical" />
+
                 <NavigationButton
+                    v-if="!vertical"
                     class="trvl-picker-header-next"
                     direction="right"
                     @click="goToNextMonth"
@@ -37,15 +42,16 @@
 
             <div class="trvl-picker-months">
                 <Month
-                    v-for="n in months"
-                    :key="n"
+                    v-for="month in (vertical ? totalNumberOfMonths : months)"
+                    :key="month"
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
                     :max-checkout="maxCheckout"
                     :max-date="maxDate"
                     :min-date="minDate"
-                    :month="currentMonth + (n - 1)"
+                    :month="currentMonth + (month - 1)"
                     :picker="picker"
+                    :vertical="vertical"
                     @select="dateSelected"
                 />
             </div>
@@ -75,6 +81,7 @@
         Month,
         NavigationButton,
         Summary,
+        Week,
     } from './components'
 
     const today = new Date()
@@ -91,6 +98,7 @@
             Month,
             NavigationButton,
             Summary,
+            Week,
         },
         props: {
             checkin: {
@@ -125,6 +133,7 @@
                 picker: null,
                 selectedCheckin: null,
                 selectedCheckout: null,
+                vertical: false,
             }
         },
         computed: {
@@ -134,6 +143,11 @@
                 maxCheckout.setDate(checkin.getDate() + this.maxStay)
 
                 return maxCheckout
+            },
+
+            totalNumberOfMonths() {
+                return this.maxDate.getMonth() - this.minDate.getMonth()
+                    + 12 * (this.maxDate.getFullYear() - this.minDate.getFullYear())
             },
         },
         methods: {
@@ -190,7 +204,7 @@
 
 <style lang="scss" scoped>
     .trvl-picker {
-        padding: 24px 16px;
+        padding: 0 16px 0;
         background-color: #fff;
         border: 1px solid $gray-light;
         border-radius: 8px;
@@ -229,6 +243,14 @@
             );
         }
 
+        &.vertical {
+            width: calc(
+                #{$day-size} * 7
+                + #{$padding-width}
+                + #{$borders-width}
+            );
+        }
+
         &-toggle {
             padding: 0;
             background-color: transparent;
@@ -248,12 +270,21 @@
         }
 
         &-header {
-            position: relative;
+            position: sticky;
+            top: 0;
+            padding-top: 24px;
+            background-color: #fff;
+
+            .vertical & {
+                justify-content: center;
+                padding-bottom: 8px;
+                border-bottom: 1px solid $gray-light;
+            }
 
             /deep/ &-previous,
             /deep/ &-next {
                 position: absolute;
-                top: -12px;
+                top: 12px;
             }
 
             /deep/ &-previous {
@@ -265,8 +296,17 @@
             }
         }
 
+        &-months {
+            .vertical & {
+                flex-direction: column;
+            }
+        }
+
         &-footer {
-            padding: 0 8px;
+            position: sticky;
+            bottom: 0;
+            padding: 0 8px 24px;
+            background-color: #fff;
 
             .single & {
                 flex-direction: column;
@@ -276,6 +316,11 @@
             .triple & {
                 flex-direction: row;
                 margin-top: 40px;
+            }
+
+            .vertical & {
+                flex-direction: column;
+                border-top: 1px solid $gray-light;
             }
 
             &-buttons {

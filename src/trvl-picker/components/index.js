@@ -3,6 +3,7 @@ import ClearButton from './ClearButton'
 import Month from './Month'
 import NavigationButton from './NavigationButton'
 import Summary from './Summary'
+import Week from './Week'
 
 export {
     ApplyButton,
@@ -10,4 +11,5 @@ export {
     Month,
     NavigationButton,
     Summary,
+    Week,
 }

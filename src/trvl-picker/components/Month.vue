@@ -1,10 +1,10 @@
 <template>
-    <div class="month">
+    <div :class="['month', { vertical }]">
         <header class="month-date">
             {{ dateString }}
         </header>
 
-        <Week />
+        <Week v-if="!vertical" />
 
         <div class="month-days">
             <Spacer
@@ -20,10 +20,12 @@
                 @click="$emit('select', date)"
             />
 
-            <Spacer
-                v-for="spacer in spacers.after"
-                :key="`spacer-after-${spacer}`"
-            />
+            <template v-if="!vertical">
+                <Spacer
+                    v-for="spacer in spacers.after"
+                    :key="`spacer-after-${spacer}`"
+                />
+            </template>
         </div>
     </div>
 </template>
@@ -44,6 +46,10 @@
             month: {
                 required: true,
                 type: Number,
+            },
+            vertical: {
+                required: true,
+                type: Boolean,
             },
         },
         computed: {
@@ -107,12 +113,20 @@
     .month {
         width: calc(#{$day-size} * 7);
 
+        &.vertical {
+            margin-top: 16px;
+        }
+
         &-date {
             margin-bottom: 24px;
             font-size: 15px;
             font-weight: bold;
             letter-spacing: 0.5px;
             text-align: center;
+
+            .vertical & {
+                margin-bottom: 16px;
+            }
         }
 
         &-days {
