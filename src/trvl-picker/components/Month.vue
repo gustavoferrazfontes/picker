@@ -112,8 +112,6 @@
 
 <style lang="scss" scoped>
     .month {
-        width: calc(#{$day-size} * 7);
-
         &.vertical {
             margin-top: 16px;
         }

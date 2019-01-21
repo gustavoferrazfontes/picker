@@ -43,7 +43,8 @@
             <div class="trvl-picker-months">
                 <Month
                     v-for="month in (vertical ? totalNumberOfMonths : months)"
-                    :key="month"
+                    :key="currentMonth + (month - 1)"
+                    class="trvl-picker-months-month"
                     :checkin="selectedCheckin || checkin"
                     :checkout="selectedCheckout || checkout"
                     :max-checkout="maxCheckout"
@@ -208,7 +209,6 @@
 
 <style lang="scss" scoped>
     .trvl-picker {
-        padding: 0 16px 0;
         background-color: #fff;
         border: 1px solid $gray-light;
         border-radius: 8px;
@@ -216,43 +216,28 @@
         box-sizing: border-box;
         color: $gray-dark;
         font-family: proxima-nova;
+        overflow: hidden;
 
-        $borders-width: 2px;
-        $month-gap: 32px;
-        $padding-width: calc(16px * 2);
+        $month-width: calc(
+            #{$day-size} * 7
+            + 16px * 2
+            + 2px
+        );
 
         &.single {
-            width: calc(
-                #{$day-size} * 7
-                + #{$padding-width}
-                + #{$borders-width}
-            );
+            width: calc(#{$month-width} * 1);
         }
 
         &.double {
-            width: calc(
-                #{$day-size} * 14
-                + #{$padding-width} * 2
-                + #{$borders-width}
-                + #{$month-gap}
-            );
+            width: calc(#{$month-width} * 2);
         }
 
         &.triple {
-            width: calc(
-                #{$day-size} * 21
-                + #{$padding-width} * 3
-                + #{$borders-width}
-                + #{$month-gap} * 2
-            );
+            width: calc(#{$month-width} * 3);
         }
 
         &.vertical {
-            width: calc(
-                #{$day-size} * 7
-                + #{$padding-width}
-                + #{$borders-width}
-            );
+            width: calc(#{$month-width} * 1);
         }
 
         &-toggle {
@@ -281,7 +266,7 @@
 
             .vertical & {
                 justify-content: center;
-                padding-bottom: 8px;
+                padding: 16px 0;
                 border-bottom: 1px solid $gray-light;
             }
 
@@ -292,11 +277,11 @@
             }
 
             /deep/ &-previous {
-                left: 0;
+                left: 16px;
             }
 
             /deep/ &-next {
-                right: 0;
+                right: 16px;
             }
         }
 
@@ -304,12 +289,16 @@
             .vertical & {
                 flex-direction: column;
             }
+
+            &-month {
+                padding: 0 16px;
+            }
         }
 
         &-footer {
             position: sticky;
             bottom: 0;
-            padding: 0 8px 24px;
+            padding: 24px;
             background-color: #fff;
 
             .single & {
@@ -319,7 +308,7 @@
             .double &,
             .triple & {
                 flex-direction: row;
-                margin-top: 40px;
+                padding-top: 40px;
             }
 
             .vertical & {
@@ -333,11 +322,17 @@
 
                 .single & {
                     width: 100%;
+                    margin-top: 16px;
                 }
 
                 .double &,
                 .triple & {
                     width: auto;
+                }
+
+                .vertical & {
+                    width: 100%;
+                    margin-top: 16px;
                 }
             }
         }

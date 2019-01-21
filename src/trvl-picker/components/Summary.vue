@@ -40,6 +40,7 @@
 
 <style lang="scss" scoped>
     .summary {
+        margin: 0;
         font-size: 15px;
         font-weight: 600;
 
