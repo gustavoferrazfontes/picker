@@ -1,21 +1,17 @@
 <template>
     <div>
-        <input
-            :class="['trvl-picker-input', {
-                active: picker === 'checkin',
-            }]"
-            :value="format(checkin)"
-            readonly
-            @click="pick('checkin')"
+        <button
+            v-for="type in ['checkin', 'checkout']"
+            :key="type"
+            class="trvl-picker-toggle"
+            @click="pick(type)"
         >
-        <input
-            :class="['trvl-picker-input', {
-                active: picker === 'checkout',
-            }]"
-            :value="format(checkout)"
-            readonly
-            @click="pick('checkout')"
-        >
+            <slot
+                :name="type"
+                :is-active="picker === type"
+                :value="format(type === 'checkin' ? checkin : checkout)"
+            />
+        </button>
 
         <article
             :class="['trvl-picker', {
@@ -233,13 +229,13 @@
             );
         }
 
-        &-input {
-            &:focus {
-                outline: none;
-            }
+        &-toggle {
+            padding: 0;
+            background-color: transparent;
+            border: none;
 
-            &.active {
-                border: 1px solid $blue;
+            & + & {
+                margin-left: 8px;
             }
         }
 
