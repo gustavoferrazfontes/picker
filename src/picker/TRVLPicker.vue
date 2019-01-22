@@ -33,19 +33,25 @@
                     <NavigationButton
                         v-if="!vertical"
                         class="picker-header-previous"
-                        direction="left"
                         :disabled="currentMonth === minDateMonth"
                         @click="goToPreviousMonth"
-                    />
+                    >
+                        <slot name="previous">
+                            ←
+                        </slot>
+                    </NavigationButton>
 
                     <Week v-if="vertical" />
 
                     <NavigationButton
                         v-if="!vertical"
                         class="picker-header-next"
-                        direction="right"
                         @click="goToNextMonth"
-                    />
+                    >
+                        <slot name="next">
+                            →
+                        </slot>
+                    </NavigationButton>
                 </header>
 
                 <div class="picker-months">

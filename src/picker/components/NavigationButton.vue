@@ -4,28 +4,9 @@
         v-bind="data.attrs"
         v-on="listeners"
     >
-        <template v-if="props.direction === 'left'">
-            ←
-        </template>
-        <template v-if="props.direction === 'right'">
-            →
-        </template>
+        <slot />
     </button>
 </template>
-
-<script>
-    export default {
-        props: {
-            direction: {
-                required: true,
-                type: String,
-                validator(direction) {
-                    return ['left', 'right'].includes(direction)
-                },
-            },
-        },
-    }
-</script>
 
 <style lang="scss" scoped>
     .navigation-button {
