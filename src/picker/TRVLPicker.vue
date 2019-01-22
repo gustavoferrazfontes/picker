@@ -277,6 +277,7 @@
         color: $gray-dark;
         font-family: proxima-nova;
         overflow: hidden;
+        z-index: 1;
 
         $month-width: calc(
             #{$day-size} * 7
