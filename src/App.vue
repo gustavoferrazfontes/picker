@@ -35,6 +35,12 @@
 <script>
     import TRVLPicker from '@/picker/TRVLPicker'
 
+    const today = new Date()
+    today.setHours(0, 0, 0, 0)
+
+    const dayAfterTomorrow = new Date(today)
+    dayAfterTomorrow.setDate(today.getDate() + 2)
+
     export default {
         name: 'App',
         components: {
@@ -42,8 +48,8 @@
         },
         data() {
             return {
-                checkin: new Date(2019, 0, 25),
-                checkout: new Date(2019, 0, 27),
+                checkin: today,
+                checkout: dayAfterTomorrow,
             }
         },
     }
