@@ -344,16 +344,13 @@
 
         &-toggle {
             padding: 0;
+            width: 50%;
             background-color: transparent;
             border: none;
             cursor: pointer;
 
             &:focus {
                 outline: none;
-            }
-
-            & + & {
-                margin-left: 8px;
             }
 
             * {

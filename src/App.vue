@@ -50,6 +50,14 @@
 </script>
 
 <style lang="scss" scoped>
+    /deep/ .picker-toggle {
+        width: auto;
+
+        + .picker-toggle {
+            margin-left: 8px;
+        }
+    }
+
     .demo {
         display: flex;
         flex-direction: column;
