@@ -1,5 +1,6 @@
 {
   "name": "@trvl/picker",
+  "description": "A Vue.js datepicker component.",
   "version": "0.1.0",
   "keywords": [
     "vue",
@@ -11,6 +12,13 @@
     "src"
   ],
   "author": "Osinga <osinga@users.noreply.github.com>",
+  "repository": {
+      "type": "git",
+      "url": "https://github.com/TRVL/picker"
+  },
+  "bugs": {
+      "url": "https://github.com/TRVL/picker/issues"
+  },
   "private": false,
   "license": "MIT",
   "scripts": {
