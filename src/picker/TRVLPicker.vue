@@ -415,6 +415,6 @@
     .fade-enter,
     .fade-leave-to {
         opacity: 0;
-        transform: translateY(8px);
+        transform: translateY(-8px);
     }
 </style>
