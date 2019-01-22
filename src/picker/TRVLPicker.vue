@@ -1,5 +1,5 @@
 <template>
-    <div class="picker-container">
+    <div :class="['picker-container', { relative: !vertical }]">
         <button
             v-for="type in ['checkin', 'checkout']"
             :key="type"
@@ -41,7 +41,18 @@
                         </slot>
                     </NavigationButton>
 
-                    <Week v-if="vertical" />
+                    <template v-if="vertical">
+                        <Week />
+
+                        <CloseButton
+                            class="picker-header-close"
+                            @click="close"
+                        >
+                            <slot name="close">
+                                ✕
+                            </slot>
+                        </CloseButton>
+                    </template>
 
                     <NavigationButton
                         v-if="!vertical"
@@ -94,6 +105,7 @@
     import {
         ApplyButton,
         ClearButton,
+        CloseButton,
         Month,
         NavigationButton,
         Summary,
@@ -111,6 +123,7 @@
         components: {
             ApplyButton,
             ClearButton,
+            CloseButton,
             Month,
             NavigationButton,
             Summary,
@@ -324,7 +337,9 @@
         }
 
         &-container {
-            position: relative;
+            &.relative {
+                position: relative;
+            }
         }
 
         &-toggle {
@@ -358,7 +373,7 @@
             position: sticky;
             top: 0;
             justify-content: center;
-            padding: 16px 0;
+            padding: 48px 0 16px;
             background-color: #fff;
             border-bottom: 1px solid $gray-light;
 
@@ -368,6 +383,12 @@
                 justify-content: space-between;
                 padding: 24px 0 0 0;
                 border-bottom: none;
+            }
+
+            /deep/ &-close {
+                position: absolute;
+                top: 4px;
+                right: 20px;
             }
 
             /deep/ &-previous,
