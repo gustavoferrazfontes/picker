@@ -1,4 +1,4 @@
-# trvl-picker
+# TRVLPicker
 
 ## Project setup
 ```

@@ -1,10 +1,10 @@
 <template>
-    <div class="trvl-picker-container">
+    <div class="picker-container">
         <button
             v-for="type in ['checkin', 'checkout']"
             :key="type"
             ref="toggles"
-            class="trvl-picker-toggle"
+            class="picker-toggle"
             type="button"
             @click="pick(type)"
         >
@@ -22,17 +22,17 @@
             <article
                 v-if="picker"
                 ref="picker"
-                :class="['trvl-picker', {
+                :class="['picker', {
                     single: months === 1,
                     double: months === 2,
                     triple: months === 3,
                     vertical,
                 }]"
             >
-                <header class="trvl-picker-header">
+                <header class="picker-header">
                     <NavigationButton
                         v-if="!vertical"
-                        class="trvl-picker-header-previous"
+                        class="picker-header-previous"
                         direction="left"
                         :disabled="currentMonth === minDateMonth"
                         @click="goToPreviousMonth"
@@ -42,17 +42,17 @@
 
                     <NavigationButton
                         v-if="!vertical"
-                        class="trvl-picker-header-next"
+                        class="picker-header-next"
                         direction="right"
                         @click="goToNextMonth"
                     />
                 </header>
 
-                <div class="trvl-picker-months">
+                <div class="picker-months">
                     <Month
                         v-for="month in (vertical ? totalNumberOfMonths : months)"
                         :key="currentMonth + (month - 1)"
-                        class="trvl-picker-months-month"
+                        class="picker-months-month"
                         :checkin="selectedCheckin || checkin"
                         :checkout="selectedCheckout || checkout"
                         :max-checkout="maxCheckout"
@@ -65,13 +65,13 @@
                     />
                 </div>
 
-                <footer class="trvl-picker-footer">
+                <footer class="picker-footer">
                     <Summary
                         :checkin="selectedCheckin || checkin"
                         :checkout="selectedCheckout || checkout"
                     />
 
-                    <aside class="trvl-picker-footer-buttons">
+                    <aside class="picker-footer-buttons">
                         <ClearButton
                             :disabled="!selectedCheckin && !selectedCheckout"
                             @click="clearSelection"
@@ -260,7 +260,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .trvl-picker {
+    .picker {
         position: absolute;
         top: calc(100% + 8px);
         background-color: #fff;

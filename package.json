@@ -1,10 +1,21 @@
 {
-  "name": "trvl-picker",
+  "name": "@trvl/picker",
   "version": "0.1.0",
-  "private": true,
+  "keywords": [
+    "vue",
+    "datepicker"
+  ],
+  "main": "dist/picker.umd.min.js",
+  "files": [
+    "dist",
+    "src"
+  ],
+  "author": "Osinga <osinga@users.noreply.github.com>",
+  "private": false,
+  "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build",
+    "build": "vue-cli-service build --target lib --name picker src/picker/TRVLPicker.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {

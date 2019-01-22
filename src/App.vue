@@ -11,17 +11,17 @@
             >
                 <div
                     :key="type"
-                    :class="['picker', { active: isActive }]"
+                    :class="['demo', { active: isActive }]"
                 >
                     <label
                         :for="type"
-                        class="picker-label"
+                        class="demo-label"
                     >
                         Check {{ type === 'checkin' ? 'in' : 'out' }}
                     </label>
                     <input
                         :id="type"
-                        class="picker-input"
+                        class="demo-input"
                         type="text"
                         :value="value"
                         readonly
@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import TRVLPicker from '@/trvl-picker/TRVLPicker'
+    import TRVLPicker from '@/picker/TRVLPicker'
 
     export default {
         name: 'App',
@@ -50,7 +50,7 @@
 </script>
 
 <style lang="scss" scoped>
-    .picker {
+    .demo {
         display: flex;
         flex-direction: column;
         border: 1px solid $gray-light;
