@@ -6,7 +6,7 @@
             ref="toggles"
             class="picker-toggle"
             type="button"
-            @click="pick(type)"
+            @click="open(type)"
         >
             <slot
                 :name="type"
@@ -247,7 +247,7 @@
                 }
             },
 
-            pick(picker) {
+            open(picker = 'checkin') {
                 if (this.picker === picker) this.close()
                 else this.picker = picker
             },
