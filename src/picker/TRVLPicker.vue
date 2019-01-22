@@ -23,9 +23,9 @@
                 v-if="picker"
                 ref="picker"
                 :class="['picker', {
-                    single: months === 1,
-                    double: months === 2,
-                    triple: months === 3,
+                    single: months === 1 && !vertical,
+                    double: months === 2 && !vertical,
+                    triple: months === 3 && !vertical,
                     vertical,
                 }]"
             >
@@ -117,6 +117,16 @@
             Week,
         },
         props: {
+            breakpointSingle: {
+                required: false,
+                type: Number,
+                default: 580,
+            },
+            breakpointDouble: {
+                required: false,
+                type: Number,
+                default: 740,
+            },
             checkin: {
                 required: true,
                 type: Date,
@@ -149,7 +159,7 @@
                 picker: null,
                 selectedCheckin: null,
                 selectedCheckout: null,
-                vertical: false,
+                vertical: true,
             }
         },
         computed: {
@@ -248,6 +258,14 @@
             },
 
             open(picker = 'checkin') {
+                this.vertical = false
+
+                const width = window.innerWidth
+
+                if (width >= this.breakpointDouble) this.months = 2
+                else if (width >= this.breakpointSingle) this.months = 1
+                else this.vertical = true
+
                 if (this.picker === picker) this.close()
                 else this.picker = picker
             },
@@ -268,16 +286,24 @@
 <style lang="scss" scoped>
     .picker {
         position: absolute;
-        top: calc(100% + 8px);
+        top: 0;
+        left: 0;
+        width: 100vw;
         background-color: #fff;
-        border: 1px solid $gray-light;
-        border-radius: 8px;
-        box-shadow: 0 1px 10px rgba(#000, 0.07);
         box-sizing: border-box;
         color: $gray-dark;
         font-family: proxima-nova;
-        overflow: hidden;
         z-index: 1;
+
+        &.single,
+        &.double,
+        &.triple {
+            top: calc(100% + 8px);
+            border: 1px solid $gray-light;
+            border-radius: 8px;
+            box-shadow: 0 1px 10px rgba(#000, 0.07);
+            overflow: hidden;
+        }
 
         $month-width: calc(
             #{$day-size} * 7
@@ -295,11 +321,6 @@
 
         &.triple {
             width: calc(#{$month-width} * 3);
-        }
-
-        &.vertical {
-            width: calc(#{$month-width} * 1);
-            overflow: visible;
         }
 
         &-container {
@@ -336,13 +357,17 @@
         &-header {
             position: sticky;
             top: 0;
-            padding-top: 24px;
+            justify-content: center;
+            padding: 16px 0;
             background-color: #fff;
+            border-bottom: 1px solid $gray-light;
 
-            .vertical & {
-                justify-content: center;
-                padding: 16px 0;
-                border-bottom: 1px solid $gray-light;
+            .single &,
+            .double &,
+            .triple & {
+                justify-content: space-between;
+                padding: 24px 0 0 0;
+                border-bottom: none;
             }
 
             /deep/ &-previous,
@@ -361,8 +386,15 @@
         }
 
         &-months {
-            .vertical & {
-                flex-direction: column;
+            flex-direction: column;
+            width: calc(#{$month-width} * 1);
+            margin: 0 auto;
+
+            .single &,
+            .double &,
+            .triple & {
+                flex-direction: row;
+                width: auto;
             }
 
             &-month {
@@ -373,11 +405,15 @@
         &-footer {
             position: sticky;
             bottom: 0;
+            flex-direction: column;
             padding: 24px;
             background-color: #fff;
+            border-top: 1px solid $gray-light;
 
-            .single & {
-                flex-direction: column;
+            .single &,
+            .double &,
+            .triple & {
+                border-top: none;
             }
 
             .double &,
@@ -386,28 +422,16 @@
                 padding-top: 40px;
             }
 
-            .vertical & {
-                flex-direction: column;
-                border-top: 1px solid $gray-light;
-            }
-
             &-buttons {
                 display: flex;
                 justify-content: space-between;
-
-                .single & {
-                    width: 100%;
-                    margin-top: 16px;
-                }
+                width: 100%;
+                margin-top: 16px;
 
                 .double &,
                 .triple & {
                     width: auto;
-                }
-
-                .vertical & {
-                    width: 100%;
-                    margin-top: 16px;
+                    margin-top: 0;
                 }
             }
         }
