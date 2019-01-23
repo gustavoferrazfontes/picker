@@ -28,7 +28,9 @@
   "publishConfig": {
     "access": "public"
   },
-  "dependencies": {},
+  "dependencies": {
+    "portal-vue": "^1.5.1"
+  },
   "peerDependencies": {
     "vue": "^2.5.22"
   },

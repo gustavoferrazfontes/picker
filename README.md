@@ -5,6 +5,7 @@ TRVLPicker is a responsive Vue.js datepicker component. From mobile to desktop i
 - [Install](#install)
 - [Usage](#usage)
     - [Basic](#basic)
+    - [Advanced](#advanced)
     - [Props](#props)
     - [Slots](#slots)
     - [Methods](#methods)
@@ -57,6 +58,19 @@ Both should be a [`Date` object](https://developer.mozilla.org/en-US/docs/Web/Ja
 </script>
 ```
 
+### Advanced
+To ensure a correct positioning of the datepicker in the full-screen layout it makes use of a [Portal](https://github.com/LinusBorg/portal-vue). Although not required, it is recommended to place a Portal target element outside your Vue app:
+
+``` html
+<body>
+    <div id="app">
+        …
+    </div>
+
+    <div id="portal"></div>
+</body>
+```
+
 ### Props
 | Prop               | Type   | Default             | Description                                      |
 |--------------------|--------|---------------------|--------------------------------------------------|
@@ -67,6 +81,7 @@ Both should be a [`Date` object](https://developer.mozilla.org/en-US/docs/Web/Ja
 | `maxDate`          | Date   | new Date() + 1 year | Last possible check-out date                     |
 | `maxStay`          | Number | 30                  | Maximum date range in days                       |
 | `minDate`          | Date   | new Date()          | First posssible check-in date                    |
+| `portal`           | String | portal              | The ID of the portal                             |
 
 ### Slots
 All slots are optional, but the `checkin` and `checkout` slots are highly recommended so as to customize their appearance.

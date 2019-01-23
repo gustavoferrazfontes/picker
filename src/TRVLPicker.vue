@@ -21,93 +21,100 @@
             </slot>
         </button>
 
-        <Transition
-            name="fade"
-            appear
+        <Portal
+            :disabled="!hasPortal || !vertical"
+            :target-el="`#${portal}`"
         >
-            <article
-                v-if="picker"
-                ref="picker"
-                :class="['trvl-picker', {
-                    single: months === 1 && !vertical,
-                    double: months === 2 && !vertical,
-                    triple: months === 3 && !vertical,
-                    vertical,
-                }]"
+            <Transition
+                name="fade"
+                appear
             >
-                <header class="trvl-picker-header">
-                    <NavigationButton
-                        v-if="!vertical"
-                        class="trvl-picker-header-previous"
-                        :disabled="currentMonth === minDateMonth"
-                        @click="goToPreviousMonth"
-                    >
-                        <slot name="previous">
-                            ←
-                        </slot>
-                    </NavigationButton>
-
-                    <template v-if="vertical">
-                        <Week />
-
-                        <CloseButton
-                            class="trvl-picker-header-close"
-                            @click="close"
+                <article
+                    v-if="picker"
+                    ref="picker"
+                    :class="['trvl-picker', {
+                        single: months === 1 && !vertical,
+                        double: months === 2 && !vertical,
+                        triple: months === 3 && !vertical,
+                        vertical,
+                    }]"
+                >
+                    <header class="trvl-picker-header">
+                        <NavigationButton
+                            v-if="!vertical"
+                            class="trvl-picker-header-previous"
+                            :disabled="currentMonth === minDateMonth"
+                            @click="goToPreviousMonth"
                         >
-                            <slot name="close">
-                                ✕
+                            <slot name="previous">
+                                ←
                             </slot>
-                        </CloseButton>
-                    </template>
+                        </NavigationButton>
 
-                    <NavigationButton
-                        v-if="!vertical"
-                        class="trvl-picker-header-next"
-                        @click="goToNextMonth"
-                    >
-                        <slot name="next">
-                            →
-                        </slot>
-                    </NavigationButton>
-                </header>
+                        <template v-if="vertical">
+                            <Week />
 
-                <div class="trvl-picker-months">
-                    <Month
-                        v-for="month in (vertical ? totalNumberOfMonths : months)"
-                        :key="currentMonth + (month - 1)"
-                        class="trvl-picker-months-month"
-                        :checkin="selectedCheckin || checkin"
-                        :checkout="selectedCheckout || checkout"
-                        :max-checkout="maxCheckout"
-                        :max-date="maxDate"
-                        :min-date="minDate"
-                        :month="currentMonth + (month - 1)"
-                        :picker="picker"
-                        :vertical="vertical"
-                        @select="dateSelected"
-                    />
-                </div>
+                            <CloseButton
+                                class="trvl-picker-header-close"
+                                @click="close"
+                            >
+                                <slot name="close">
+                                    ✕
+                                </slot>
+                            </CloseButton>
+                        </template>
 
-                <footer class="trvl-picker-footer">
-                    <Summary
-                        :checkin="selectedCheckin || checkin"
-                        :checkout="selectedCheckout || checkout"
-                    />
+                        <NavigationButton
+                            v-if="!vertical"
+                            class="trvl-picker-header-next"
+                            @click="goToNextMonth"
+                        >
+                            <slot name="next">
+                                →
+                            </slot>
+                        </NavigationButton>
+                    </header>
 
-                    <aside class="trvl-picker-footer-buttons">
-                        <ClearButton
-                            :disabled="!selectedCheckin && !selectedCheckout"
-                            @click="clearSelection"
+                    <div class="trvl-picker-months">
+                        <Month
+                            v-for="month in (vertical ? totalNumberOfMonths : months)"
+                            :key="currentMonth + (month - 1)"
+                            class="trvl-picker-months-month"
+                            :checkin="selectedCheckin || checkin"
+                            :checkout="selectedCheckout || checkout"
+                            :max-checkout="maxCheckout"
+                            :max-date="maxDate"
+                            :min-date="minDate"
+                            :month="currentMonth + (month - 1)"
+                            :picker="picker"
+                            :vertical="vertical"
+                            @select="dateSelected"
                         />
-                        <ApplyButton @click="applySelection" />
-                    </aside>
-                </footer>
-            </article>
-        </Transition>
+                    </div>
+
+                    <footer class="trvl-picker-footer">
+                        <Summary
+                            :checkin="selectedCheckin || checkin"
+                            :checkout="selectedCheckout || checkout"
+                        />
+
+                        <aside class="trvl-picker-footer-buttons">
+                            <ClearButton
+                                :disabled="!selectedCheckin && !selectedCheckout"
+                                @click="clearSelection"
+                            />
+                            <ApplyButton @click="applySelection" />
+                        </aside>
+                    </footer>
+                </article>
+            </Transition>
+        </Portal>
     </div>
 </template>
 
 <script>
+    import { Portal } from 'portal-vue'
+
     import {
         ApplyButton,
         ClearButton,
@@ -132,6 +139,7 @@
             CloseButton,
             Month,
             NavigationButton,
+            Portal,
             Summary,
             Week,
         },
@@ -169,10 +177,16 @@
                 type: Date,
                 default: () => new Date(today),
             },
+            portal: {
+                required: false,
+                type: String,
+                default: 'portal',
+            },
         },
         data() {
             return {
                 currentMonth: today.getMonth(),
+                hasPortal: !!document.getElementById(this.portal),
                 initialMonth: today.getMonth(),
                 months: 2,
                 picker: null,
