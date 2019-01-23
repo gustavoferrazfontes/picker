@@ -8,8 +8,7 @@
   ],
   "main": "dist/picker.umd.min.js",
   "files": [
-    "dist",
-    "src"
+    "dist"
   ],
   "author": "Osinga <osinga@users.noreply.github.com>",
   "repository": {
@@ -19,12 +18,15 @@
   "bugs": {
     "url": "https://github.com/TRVL/picker/issues"
   },
-  "private": false,
+  "homepage": "https://github.com/TRVL/picker#readme",
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
     "build": "vue-cli-service build --formats umd-min --name picker --target lib src/TRVLPicker.vue",
     "lint": "vue-cli-service lint"
+  },
+  "publishConfig": {
+    "access": "public"
   },
   "dependencies": {},
   "peerDependencies": {
