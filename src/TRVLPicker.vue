@@ -235,6 +235,8 @@
             },
 
             close() {
+                this.$emit('close')
+
                 this.picker = null
             },
 
@@ -291,6 +293,12 @@
             },
 
             open(picker = 'checkin') {
+                if (this.picker === picker) {
+                    this.close()
+
+                    return
+                }
+
                 this.vertical = false
 
                 const width = window.innerWidth
@@ -299,8 +307,9 @@
                 else if (width >= this.breakpointSingle) this.months = 1
                 else this.vertical = true
 
-                if (this.picker === picker) this.close()
-                else this.picker = picker
+                this.$emit('open')
+
+                this.picker = picker
             },
 
             toggleEventListeners() {

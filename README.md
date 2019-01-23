@@ -9,6 +9,7 @@ TRVLPicker is a responsive Vue.js datepicker component. From mobile to desktop i
     - [Props](#props)
     - [Slots](#slots)
     - [Methods](#methods)
+    - [Events](#events)
 - [Contributing](#contributing)
 
 ## Install
@@ -175,6 +176,13 @@ By adding a [`ref`](https://vuejs.org/v2/api/#ref) to the datepicker a couple of
 |---------|-------------------------|----------------------------------------------------------------|
 | `close` |                         | Close the datepicker                                           |
 | `open`  | `checkin` \| `checkout` | Open the datepicker on the given input (defaults to `checkin`) |
+
+### Events
+
+| Event   | Description              |
+|---------|--------------------------|
+| `close` | The datepicker is closed |
+| `open`  | The datepicker is opened |
 
 ## Contributing
 ``` bash
