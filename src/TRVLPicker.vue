@@ -12,7 +12,13 @@
                 :name="type"
                 :is-active="picker === type"
                 :value="format(type === 'checkin' ? checkin : checkout)"
-            />
+            >
+                <input
+                    :class="{ active: picker === type }"
+                    :value="format(type === 'checkin' ? checkin : checkout)"
+                    type="text"
+                >
+            </slot>
         </button>
 
         <Transition
