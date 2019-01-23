@@ -1,12 +1,12 @@
 <template>
-    <div :class="['month', { vertical }]">
-        <header class="month-date">
+    <div :class="['trvl-picker-month', { vertical }]">
+        <header class="trvl-picker-month-date">
             {{ dateString }}
         </header>
 
         <Week v-if="!vertical" />
 
-        <div class="month-days">
+        <div class="trvl-picker-month-days">
             <Spacer
                 v-for="spacer in spacers.before"
                 :key="`spacer-before-${spacer}`"
@@ -110,8 +110,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .month {
+<style lang="scss">
+    .trvl-picker-month {
         &.vertical {
             margin-top: 16px;
         }

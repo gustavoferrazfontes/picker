@@ -1,6 +1,6 @@
 <template>
     <button
-        :class="['day', {
+        :class="['trvl-picker-day', {
             checkin: isCheckin,
             checkout: isCheckout,
             range: isInRange,
@@ -85,8 +85,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .day {
+<style lang="scss">
+    .trvl-picker-day {
         display: inline-flex;
         align-items: center;
         justify-content: center;

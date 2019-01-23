@@ -1,6 +1,6 @@
 <template functional>
     <button
-        :class="['apply-button', data.staticClass || '']"
+        :class="['trvl-picker-apply', data.staticClass || '']"
         v-bind="data.attrs"
         v-on="listeners"
     >
@@ -8,8 +8,8 @@
     </button>
 </template>
 
-<style lang="scss" scoped>
-    .apply-button {
+<style lang="scss">
+    .trvl-picker-apply {
         padding: 12px 32px;
         background-color: $pink;
         border-radius: 8px;

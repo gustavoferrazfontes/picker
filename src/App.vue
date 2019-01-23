@@ -55,11 +55,11 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    /deep/ .picker-toggle {
+<style lang="scss">
+    .trvl-picker-toggle {
         width: auto;
 
-        + .picker-toggle {
+        + .trvl-picker-toggle {
             margin-left: 8px;
         }
     }

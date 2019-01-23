@@ -1,6 +1,6 @@
 <template functional>
     <button
-        :class="['close-button', data.staticClass || '']"
+        :class="['trvl-picker-close', data.staticClass || '']"
         v-bind="data.attrs"
         v-on="listeners"
     >
@@ -8,8 +8,8 @@
     </button>
 </template>
 
-<style lang="scss" scoped>
-    .close-button {
+<style lang="scss">
+    .trvl-picker-close {
         height: $day-size;
         width: $day-size;
         background-color: #fff;

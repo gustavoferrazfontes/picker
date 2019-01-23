@@ -1,6 +1,6 @@
 <template functional>
     <button
-        :class="['navigation-button', data.staticClass || '']"
+        :class="['trvl-picker-navigation', data.staticClass || '']"
         v-bind="data.attrs"
         v-on="listeners"
     >
@@ -8,8 +8,8 @@
     </button>
 </template>
 
-<style lang="scss" scoped>
-    .navigation-button {
+<style lang="scss">
+    .trvl-picker-navigation {
         height: $day-size;
         width: $day-size;
         background-color: #fff;

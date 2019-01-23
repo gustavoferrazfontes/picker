@@ -1,8 +1,8 @@
 <template>
-    <p class="summary">
+    <p class="trvl-picker-summary">
         {{ format(checkin) }} - {{ format(checkout) }}
 
-        <span class="summary-nights">
+        <span class="trvl-picker-summary-nights">
             {{ nights }} {{ nights === 1 ? 'night' : 'nights' }}
         </span>
     </p>
@@ -38,8 +38,8 @@
     }
 </script>
 
-<style lang="scss" scoped>
-    .summary {
+<style lang="scss">
+    .trvl-picker-summary {
         margin: 0;
         font-size: 15px;
         font-weight: 600;

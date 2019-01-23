@@ -1,9 +1,9 @@
 <template functional>
-    <span class="spacer" />
+    <span class="trvl-picker-spacer" />
 </template>
 
-<style lang="scss" scoped>
-    .spacer {
+<style lang="scss">
+    .trvl-picker-spacer {
         height: $day-size;
         width: $day-size;
     }

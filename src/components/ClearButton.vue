@@ -1,6 +1,6 @@
 <template functional>
     <button
-        :class="['clear-button', data.staticClass || '']"
+        :class="['trvl-picker-clear', data.staticClass || '']"
         v-bind="data.attrs"
         v-on="listeners"
     >
@@ -8,8 +8,8 @@
     </button>
 </template>
 
-<style lang="scss" scoped>
-    .clear-button {
+<style lang="scss">
+    .trvl-picker-clear {
         padding: 12px 32px 12px 0;
         background-color: #fff;
         color: $gray;
