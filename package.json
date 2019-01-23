@@ -1,7 +1,7 @@
 {
   "name": "@trvl/picker",
   "description": "A Vue.js datepicker component.",
-  "version": "0.1.1",
+  "version": "0.2.0",
   "keywords": [
     "vue",
     "datepicker"
