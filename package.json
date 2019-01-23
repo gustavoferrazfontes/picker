@@ -23,7 +23,7 @@
   "license": "MIT",
   "scripts": {
     "serve": "vue-cli-service serve",
-    "build": "vue-cli-service build --target lib --name picker src/picker/TRVLPicker.vue",
+    "build": "vue-cli-service build --formats umd-min --name picker --target lib src/TRVLPicker.vue",
     "lint": "vue-cli-service lint"
   },
   "dependencies": {},

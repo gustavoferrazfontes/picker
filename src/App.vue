@@ -33,7 +33,7 @@
 </template>
 
 <script>
-    import TRVLPicker from '@/picker/TRVLPicker'
+    import TRVLPicker from '@/TRVLPicker'
 
     const today = new Date()
     today.setHours(0, 0, 0, 0)
