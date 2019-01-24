@@ -1,6 +1,8 @@
 # TRVLPicker
 TRVLPicker is a responsive Vue.js datepicker component. From mobile to desktop it has a full-screen vertical layout, a single month layout, and a double month layout.
 
+![Screenshots](https://raw.githubusercontent.com/TRVL/picker/master/screenshots.jpg)
+
 ## Table of contents
 - [Install](#install)
 - [Usage](#usage)
