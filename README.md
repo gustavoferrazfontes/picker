@@ -51,8 +51,8 @@ Both should be a [`Date` object](https://developer.mozilla.org/en-US/docs/Web/Ja
         },
         data() {
             return {
-                checkin: new Date(2019, 2, 14),
-                checkout: new Date(2019, 2, 16),
+                checkin: new Date(2019, 2, 13),
+                checkout: new Date(2019, 2, 15),
             }
         },
     }
@@ -123,7 +123,7 @@ The following data is available in the [`slot-scope`](https://vuejs.org/v2/guide
 | Data       | Type    | Description                           |
 |------------|---------|---------------------------------------|
 | `isActive` | Boolean | Whether the check-out input is active |
-| `value`    | Date    | The raw check-out value                |
+| `value`    | Date    | The raw check-out value               |
 
 #### Close
 The template used for the close button in the vertical layout.
@@ -197,4 +197,7 @@ npm run build
 
 # Lints and fixes files
 npm run lint
+
+# Runs unit tests
+npm run test:unit
 ```
