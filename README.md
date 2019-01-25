@@ -1,5 +1,5 @@
 # TRVLPicker
-TRVLPicker is a responsive Vue.js datepicker component. From mobile to desktop it has a full-screen vertical layout, a single month layout, and a double month layout.
+TRVLPicker is a responsive Vue.js datepicker component. From mobile to desktop it has a full-screen vertical layout, a single month layout, a double month layout, and a triple month layout.
 
 ![Screenshots](https://raw.githubusercontent.com/TRVL/picker/master/screenshots.jpg)
 
@@ -75,16 +75,17 @@ To ensure a correct positioning of the datepicker in the full-screen layout it m
 ```
 
 ### Props
-| Prop               | Type   | Default             | Description                                      |
-|--------------------|--------|---------------------|--------------------------------------------------|
-| `breakpointSingle` | Number | 580                 | Point at which the layout goes to a single month |
-| `breakpointDouble` | Number | 740                 | Point at which the layout goes to two months     |
-| `checkin`          | Date   |                     | Check-in date                                    |
-| `checkout`         | Date   |                     | Check-out date                                   |
-| `maxDate`          | Date   | new Date() + 1 year | Last possible check-out date                     |
-| `maxStay`          | Number | 30                  | Maximum date range in days                       |
-| `minDate`          | Date   | new Date()          | First posssible check-in date                    |
-| `portal`           | String | portal              | The ID of the portal                             |
+| Prop               | Type   | Default               | Description                                             |
+|--------------------|--------|-----------------------|---------------------------------------------------------|
+| `breakpointSingle` | Number | `580`                 | Point at which the layout goes to a single month layout |
+| `breakpointDouble` | Number | `740`                 | Point at which the layout goes to a double month layout |
+| `breakpointTriple` | Number | `0` (disabled)        | Point at which the layout goes to a triple month layout |
+| `checkin`          | Date   |                       | Check-in date                                           |
+| `checkout`         | Date   |                       | Check-out date                                          |
+| `maxDate`          | Date   | `new Date()` + 1 year | Last possible check-out date                            |
+| `maxStay`          | Number | `30`                  | Maximum date range in days                              |
+| `minDate`          | Date   | `new Date()`          | First posssible check-in date                           |
+| `portal`           | String | `portal`              | The ID of the portal                                    |
 
 ### Slots
 All slots are optional, but the `checkin` and `checkout` slots are highly recommended so as to customize their appearance.

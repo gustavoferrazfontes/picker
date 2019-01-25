@@ -154,6 +154,11 @@
                 type: Number,
                 default: 740,
             },
+            breakpointTriple: {
+                required: false,
+                type: Number,
+                default: 0,
+            },
             checkin: {
                 required: true,
                 type: Date,
@@ -303,7 +308,8 @@
 
                 const width = window.innerWidth
 
-                if (width >= this.breakpointDouble) this.months = 2
+                if (this.breakpointTriple && width >= this.breakpointTriple) this.months = 3
+                else if (width >= this.breakpointDouble) this.months = 2
                 else if (width >= this.breakpointSingle) this.months = 1
                 else this.vertical = true
 
