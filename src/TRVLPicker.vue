@@ -233,7 +233,8 @@
             },
 
             clearSelection() {
-                this.currentMonth = this.initialMonth
+                if (!this.vertical) this.currentMonth = this.initialMonth
+
                 this.picker = 'checkin'
                 this.selectedCheckin = null
                 this.selectedCheckout = null

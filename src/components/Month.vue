@@ -85,6 +85,7 @@
 
             normalizedDate() {
                 const normalizedDate = new Date()
+                normalizedDate.setDate(1) // Set to day 1 to avoid forward
                 normalizedDate.setMonth(this.month)
 
                 return normalizedDate
