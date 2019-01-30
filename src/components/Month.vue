@@ -116,7 +116,7 @@
             },
         },
         mounted() {
-            if (this.isSelectedMonth) {
+            if (this.isSelectedMonth && this.vertical) {
                 const pickerHeaderHeight = document.querySelector('.trvl-picker-header').clientHeight
                 window.scrollTo(0, this.$refs.month.offsetTop - pickerHeaderHeight - 16)
             }
