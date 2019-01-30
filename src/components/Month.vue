@@ -51,7 +51,7 @@
                 required: true,
                 type: Number,
             },
-            selectedMonth: {
+            isSelectedMonth: {
                 required: true,
                 type: Boolean,
             },
@@ -116,7 +116,7 @@
             },
         },
         mounted() {
-            if (this.selectedMonth) {
+            if (this.isSelectedMonth) {
                 const pickerHeaderHeight = document.querySelector('.trvl-picker-header').clientHeight
                 window.scrollTo(0, this.$refs.month.offsetTop - pickerHeaderHeight - 16)
             }

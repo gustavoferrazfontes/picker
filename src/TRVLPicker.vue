@@ -88,7 +88,7 @@
                             :month="currentMonth + (month - 1)"
                             :picker="picker"
                             :vertical="vertical"
-                            :selected-month="checkin.getMonth() === (month - 1)"
+                            :is-selected-month="checkin.getMonth() === (month - 1)"
                             @select="dateSelected"
                         />
                     </div>
