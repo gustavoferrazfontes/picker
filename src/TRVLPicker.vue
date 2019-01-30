@@ -222,8 +222,8 @@
         watch: {
             picker: 'toggleEventListeners',
         },
-        async mounted() {
-            await this.setMonths()
+        mounted() {
+            this.setMonths()
 
             if (!this.vertical) this.currentMonth = this.checkin.getMonth()
         },
