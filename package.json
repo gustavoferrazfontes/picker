@@ -1,6 +1,6 @@
 {
   "name": "@trvl/picker",
-  "version": "0.4.2",
+  "version": "0.5.0",
   "description": "A responsive Vue.js datepicker component.",
   "author": "Osinga <osinga@users.noreply.github.com>",
   "scripts": {
