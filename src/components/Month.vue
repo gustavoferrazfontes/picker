@@ -1,5 +1,8 @@
 <template>
-    <div :class="['trvl-picker-month', { vertical }]">
+    <div
+        ref="month"
+        :class="['trvl-picker-month', { vertical }]"
+    >
         <header class="trvl-picker-month-date">
             {{ dateString }}
         </header>
@@ -47,6 +50,10 @@
             month: {
                 required: true,
                 type: Number,
+            },
+            isSelectedMonth: {
+                required: true,
+                type: Boolean,
             },
             vertical: {
                 required: true,
@@ -107,6 +114,12 @@
                     this.normalizedDate.getMonth(),
                 )
             },
+        },
+        mounted() {
+            if (this.isSelectedMonth) {
+                const pickerHeaderHeight = document.querySelector('.trvl-picker-header').clientHeight
+                window.scrollTo(0, this.$refs.month.offsetTop - pickerHeaderHeight - 16)
+            }
         },
     }
 </script>

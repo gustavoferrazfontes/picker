@@ -88,6 +88,7 @@
                             :month="currentMonth + (month - 1)"
                             :picker="picker"
                             :vertical="vertical"
+                            :is-selected-month="checkin.getMonth() === (month - 1)"
                             @select="dateSelected"
                         />
                     </div>
@@ -197,7 +198,7 @@
                 picker: null,
                 selectedCheckin: null,
                 selectedCheckout: null,
-                vertical: true,
+                vertical: false,
             }
         },
         computed: {
@@ -220,6 +221,11 @@
         },
         watch: {
             picker: 'toggleEventListeners',
+        },
+        mounted() {
+            this.setMonths()
+
+            if (!this.vertical) this.currentMonth = this.checkin.getMonth()
         },
         methods: {
             applySelection() {
@@ -305,18 +311,18 @@
                     return
                 }
 
-                this.vertical = false
+                this.$emit('open')
 
+                this.picker = picker
+            },
+
+            setMonths() {
                 const width = window.innerWidth
 
                 if (this.breakpointTriple && width >= this.breakpointTriple) this.months = 3
                 else if (width >= this.breakpointDouble) this.months = 2
                 else if (width >= this.breakpointSingle) this.months = 1
                 else this.vertical = true
-
-                this.$emit('open')
-
-                this.picker = picker
             },
 
             toggleEventListeners() {
