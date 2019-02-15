@@ -4,9 +4,19 @@
         v-bind="data.attrs"
         v-on="listeners"
     >
-        Apply
+    {{props.title}}
     </button>
 </template>
+<script>
+export default {
+    props:{
+        title:{
+            type:String,
+            default:"Apply"
+        }
+    }
+}
+</script>
 
 <style lang="scss">
     .trvl-picker-apply {

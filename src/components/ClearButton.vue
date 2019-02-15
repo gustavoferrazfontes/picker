@@ -4,9 +4,19 @@
         v-bind="data.attrs"
         v-on="listeners"
     >
-        Clear
+       {{props.title}} 
     </button>
 </template>
+<script>
+export default {
+    props:{
+        title:{
+            type:String,
+            default:"Clear"
+        }
+    }
+}
+</script>
 
 <style lang="scss">
     .trvl-picker-clear {

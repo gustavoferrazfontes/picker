@@ -3,6 +3,12 @@
         <TRVLPicker
             :checkin.sync="checkin"
             :checkout.sync="checkout"
+            lang="pt-br"
+            :minDate="new Date(20)"
+            :maxDate="new Date()"
+            :weeks="['Dom','Seg','Ter','Qua','Qui','Sex','Sab']"
+            buttonClearTitle="Limpar"
+            buttonApplyTitle="Aplicar"
         >
             <template
                 v-for="type in ['checkin', 'checkout']"
@@ -28,7 +34,7 @@
                     >
                 </div>
             </template>
-        </TRVLPicker>
+        </TRVLPicker>{{checkin }}-{{checkout}}
     </div>
 </template>
 
