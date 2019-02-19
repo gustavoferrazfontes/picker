@@ -1,6 +1,6 @@
 {
-  "name": "@trvl/picker",
-  "version": "0.5.1",
+  "name": "picker-vntx-ptbr",
+  "version": "0.5.4",
   "description": "A responsive Vue.js datepicker component.",
   "author": "Osinga <osinga@users.noreply.github.com>",
   "scripts": {

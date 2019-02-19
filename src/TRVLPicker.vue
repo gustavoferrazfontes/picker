@@ -197,7 +197,7 @@ export default {
       hasPortal: !!document.getElementById(this.portal),
       initialMonth: today.getMonth(),
       months: 2,
-      picker: null,
+      picker: 'checkin',
       selectedCheckin: null,
       selectedCheckout: null,
       vertical: false
